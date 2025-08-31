@@ -66,122 +66,64 @@
       font-weight: bold;
     }
 
-   /* TikTok Profile Card Styles */
-    .tiktok-card {
+    /* TikTok video carousel */
+    .video-card {
       flex-direction: column;
-      padding: 20px;
-      text-align: left;
-    }
-    .tiktok-carousel {
-      position: relative;
+      padding: 0;
       overflow: hidden;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      max-height: 270px; /* Limit height to 270px */
     }
-    .tiktok-carousel-inner {
-      display: flex;
-      transition: transform 0.4s ease-in-out;
-      width: 300%;
-    }
-    .tiktok-carousel-item {
-      min-width: 100%;
-      box-sizing: border-box;
-      display: flex;
-      justify-content: center;
-    }
-    .tiktok-carousel-item video {
-      width: 100%;
-      max-height: 270px; /* Limit video height to 270px */
-      border-radius: 8px;
-      object-fit: cover; /* Ensure video fills container */
-    }
-    .tiktok-carousel-controls {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: space-between;
-      transform: translateY(-50%);
-      padding: 0 10px;
-    }
-    .tiktok-carousel-controls button {
-      background: rgba(0,0,0,0.5);
-      border: none;
-      color: white;
-      font-size: 18px;
-      padding: 6px 10px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-    .tiktok-profile-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      width: 100%;
-    }
-    .tiktok-profile-content {
+    .carousel {
+      position: relative;
       display: flex;
       align-items: center;
-      flex-grow: 1;
+      justify-content: center;
+      overflow: hidden;
+      width: 100%;
+      height: 270px;
     }
-    .tiktok-profile-img {
-      border-radius: 50%; /* Ensure avatar is circular */
-      width: 60px;
-      height: 60px;
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      align-items: flex-end;
+    }
+    .carousel video {
+      width: 150px;
+      height: 200px;
+      margin: 0 10px;
+      border-radius: 12px;
       object-fit: cover;
+      opacity: 0.6;
+      transform: scale(0.9);
+      transition: all 0.4s ease;
     }
-    .tiktok-profile-info {
-      display: flex;
-      flex-direction: column;
-      margin-left: 12px;
-      text-align: left; /* Align text to the left */
+    .carousel video.active {
+      width: 220px;
+      height: 240px;
+      opacity: 1;
+      transform: scale(1) translateY(-20px);
+      z-index: 2;
     }
-    .tiktok-nickname {
-      margin: 0;
-      font-size: 18px;
-      text-align: left;
-    }
-    .tiktok-username {
-      margin: 2px 0 0;
-      font-size: 14px;
-      color: #666;
-      text-align: left;
-    }
-    .tiktok-stats {
-      display: flex;
-      gap: 20px;
-      margin-top: 10px;
-    }
-    .tiktok-stat {
-      font-size: 16px;
-      font-weight: bold;
-      color: #222;
-      text-align: left;
-    }
-    .tiktok-stat span {
-      display: block;
-      font-size: 13px;
-      font-weight: normal;
-      color: #666;
-    }
-    .tiktok-follow-btn {
-      padding: 8px 16px;
-      background: #fe2c55;
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
       color: white;
-      font-size: 14px;
       border: none;
-      border-radius: 6px;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
       cursor: pointer;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.2s;
-      white-space: nowrap;
-      margin-left: 15px; /* Add spacing from profile info */
+      font-size: 18px;
+      z-index: 5;
     }
-    .tiktok-follow-btn:hover {
-      background: #d91d45;
+    .carousel-button.left { left: 10px; }
+    .carousel-button.right { right: 10px; }
+    .video-card .content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 15px;
     }
 
     /* Units Section */
@@ -408,56 +350,22 @@
       <span>MK Rimba Camp Chatbot</span>
     </a>
 
-    <!-- TikTok Profile Card -->
-    <div class="card tiktok-card">
-      <!-- Carousel with 3 local videos -->
-      <div class="tiktok-carousel">
-        <div class="tiktok-carousel-inner" id="tiktokCarouselInner">
-          <div class="tiktok-carousel-item">
-            <video controls>
-              <source src="mkvideo.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="tiktok-carousel-item">
-            <video controls>
-              <source src="mkvideo1.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="tiktok-carousel-item">
-            <video controls>
-              <source src="mkvideo2.mp4" type="video/mp4">
-            </video>
-          </div>
+    <!-- TikTok Video Carousel -->
+    <a class="card video-card" href="https://www.tiktok.com/@lynnarsat" target="_blank">
+      <div class="carousel">
+        <button class="carousel-button left">&#10094;</button>
+        <div class="carousel-track">
+          <video muted loop playsinline><source src="mkvideo.mp4" type="video/mp4"></video>
+          <video muted loop playsinline class="active"><source src="mkvideo1.mp4" type="video/mp4"></video>
+          <video muted loop playsinline><source src="mkvideo2.mp4" type="video/mp4"></video>
         </div>
-        <div class="tiktok-carousel-controls">
-          <button id="tiktokPrevBtn">&#8249;</button>
-          <button id="tiktokNextBtn">&#8250;</button>
-        </div>
+        <button class="carousel-button right">&#10095;</button>
       </div>
-
-      <div class="tiktok-profile-row">
-        <img id="tiktokAvatar" class="tiktok-profile-img" src="" alt="Profile Picture">
-        <div class="tiktok-profile-info">
-          <h2 class="tiktok-nickname" id="tiktokNickname">Loading...</h2>
-          <p class="tiktok-username">@<span id="tiktokUsername"></span></p>
-        </div>
+      <div class="content">
+        <img src="https://img.icons8.com/color/48/tiktok--v1.png" alt="TikTok">
+        <span>Follow us on TikTok</span>
       </div>
-
-      <!-- Stats + Follow button row -->
-      <div class="tiktok-stats-row">
-        <div class="tiktok-stats">
-          <div class="tiktok-stat">
-            <div id="tiktokFollowers">0</div>
-            <span>Followers</span>
-          </div>
-          <div class="tiktok-stat">
-            <div id="tiktokHearts">0</div>
-            <span>Likes</span>
-          </div>
-        </div>
-        <a id="tiktokFollowBtn" class="tiktok-follow-btn" target="_blank">Follow</a>
-      </div>
-    </div>
+    </a>
 
     <!-- WhatsApp -->
     <a class="card" href="https://wa.me/60197088144?text=Hello%20MK%20Rimba%20Camp%20Park%20👋" target="_blank">
@@ -614,56 +522,41 @@
         ? "block" : "none";
     });
 
-    // TikTok Profile API
-    const uid = "7247356375642637318"; // TikTok UID
-    const tiktokUrl = `https://free-tiktok-api-scraper-mobile-version.p.rapidapi.com/tok/v1/user_profile/?uid=${uid}`;
+    // TikTok carousel logic
+    const track = document.querySelector(".carousel-track");
+    const videos = Array.from(track.children);
+    const leftBtn = document.querySelector(".carousel-button.left");
+    const rightBtn = document.querySelector(".carousel-button.right");
+    let currentIndex = 1; // Start with middle video
 
-    const options = {
-      method: 'GET',
-      headers: {
-        'x-rapidapi-key': '5c5f65741dmshca9c1b43174b1eep10a0adjsn17de2d4044ca',
-        'x-rapidapi-host': 'free-tiktok-api-scraper-mobile-version.p.rapidapi.com'
-      }
-    };
-
-    fetch(tiktokUrl, options)
-      .then(response => response.json())
-      .then(data => {
-        console.log("Profile data:", data);
-        const profile = data.user;
-
-        if (!profile) {
-          document.getElementById("tiktokNickname").textContent = "Profile not found!";
-          return;
-        }
-
-        document.getElementById("tiktokAvatar").src = profile.avatar_medium?.url_list?.[0] || "";
-        document.getElementById("tiktokNickname").textContent = profile.nickname;
-        document.getElementById("tiktokUsername").textContent = profile.unique_id;
-        document.getElementById("tiktokFollowers").textContent = profile.follower_count?.toLocaleString();
-        document.getElementById("tiktokHearts").textContent = profile.total_favorited?.toLocaleString();
-
-        // Update follow button link
-        document.getElementById("tiktokFollowBtn").href = `https://www.tiktok.com/@${profile.unique_id}`;
-      })
-      .catch(error => {
-        console.error("Error fetching TikTok profile:", error);
-        document.getElementById("tiktokNickname").textContent = "Error loading profile";
+    function updateCarousel() {
+      videos.forEach((video, index) => {
+        video.classList.remove("active");
+        video.pause();
       });
+      const activeVideo = videos[currentIndex];
+      activeVideo.classList.add("active");
+      activeVideo.play();
 
-    // TikTok Carousel logic
-    let tiktokCurrentIndex = 0;
-    const tiktokInner = document.getElementById("tiktokCarouselInner");
-    const tiktokTotalItems = tiktokInner.children.length;
+      const offset = (track.clientWidth / 2) - (activeVideo.offsetWidth / 2);
+      const translateX = -currentIndex * 170 + offset;
+      track.style.transform = `translateX(${translateX}px)`;
+    }
 
-    document.getElementById("tiktokPrevBtn").addEventListener("click", () => {
-      tiktokCurrentIndex = (tiktokCurrentIndex === 0) ? tiktokTotalItems - 1 : tiktokCurrentIndex - 1;
-      tiktokInner.style.transform = `translateX(-${tiktokCurrentIndex * 100}%)`;
+    leftBtn.addEventListener("click", e => {
+      e.preventDefault();
+      currentIndex = (currentIndex - 1 + videos.length) % videos.length;
+      updateCarousel();
     });
 
-    document.getElementById("tiktokNextBtn").addEventListener("click", () => {
-      tiktokCurrentIndex = (tiktokCurrentIndex === tiktokTotalItems - 1) ? 0 : tiktokCurrentIndex + 1;
-      tiktokInner.style.transform = `translateX(-${tiktokCurrentIndex * 100}%)`;
+    rightBtn.addEventListener("click", e => {
+      e.preventDefault();
+      currentIndex = (currentIndex + 1) % videos.length;
+      updateCarousel();
+    });
+
+    window.addEventListener("load", () => {
+      updateCarousel();
     });
 
     // YouTube API for vlog section

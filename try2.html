@@ -66,66 +66,6 @@
       font-weight: bold;
     }
 
-    /* TikTok video carousel */
-    .video-card {
-      flex-direction: column;
-      padding: 0;
-      overflow: hidden;
-    }
-    .carousel {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      width: 100%;
-      height: 270px;
-    }
-    .carousel-track {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-      align-items: flex-end;
-    }
-    .carousel video {
-      width: 150px;
-      height: 200px;
-      margin: 0 10px;
-      border-radius: 12px;
-      object-fit: cover;
-      opacity: 0.6;
-      transform: scale(0.9);
-      transition: all 0.4s ease;
-    }
-    .carousel video.active {
-      width: 220px;
-      height: 240px;
-      opacity: 1;
-      transform: scale(1) translateY(-20px);
-      z-index: 2;
-    }
-    .carousel-button {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.5);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 35px;
-      height: 35px;
-      cursor: pointer;
-      font-size: 18px;
-      z-index: 5;
-    }
-    .carousel-button.left { left: 10px; }
-    .carousel-button.right { right: 10px; }
-    .video-card .content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 15px;
-    }
-
     /* Units Section */
     .units-section {
       margin: 30px 0;
@@ -350,23 +290,6 @@
       <span>MK Rimba Camp Chatbot</span>
     </a>
 
-    <!-- TikTok Video Carousel -->
-    <a class="card video-card" href="https://www.tiktok.com/@lynnarsat" target="_blank">
-      <div class="carousel">
-        <button class="carousel-button left">&#10094;</button>
-        <div class="carousel-track">
-          <video muted loop playsinline><source src="mkvideo.mp4" type="video/mp4"></video>
-          <video muted loop playsinline class="active"><source src="mkvideo1.mp4" type="video/mp4"></video>
-          <video muted loop playsinline><source src="mkvideo2.mp4" type="video/mp4"></video>
-        </div>
-        <button class="carousel-button right">&#10095;</button>
-      </div>
-      <div class="content">
-        <img src="https://img.icons8.com/color/48/tiktok--v1.png" alt="TikTok">
-        <span>Follow us on TikTok</span>
-      </div>
-    </a>
-
     <!-- WhatsApp -->
     <a class="card" href="https://wa.me/60197088144?text=Hello%20MK%20Rimba%20Camp%20Park%20👋" target="_blank">
       <img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="WhatsApp">
@@ -520,43 +443,6 @@
       chatFrame.style.display =
         (chatFrame.style.display === "none" || chatFrame.style.display === "")
         ? "block" : "none";
-    });
-
-    // TikTok carousel logic
-    const track = document.querySelector(".carousel-track");
-    const videos = Array.from(track.children);
-    const leftBtn = document.querySelector(".carousel-button.left");
-    const rightBtn = document.querySelector(".carousel-button.right");
-    let currentIndex = 1; // Start with middle video
-
-    function updateCarousel() {
-      videos.forEach((video, index) => {
-        video.classList.remove("active");
-        video.pause();
-      });
-      const activeVideo = videos[currentIndex];
-      activeVideo.classList.add("active");
-      activeVideo.play();
-
-      const offset = (track.clientWidth / 2) - (activeVideo.offsetWidth / 2);
-      const translateX = -currentIndex * 170 + offset;
-      track.style.transform = `translateX(${translateX}px)`;
-    }
-
-    leftBtn.addEventListener("click", e => {
-      e.preventDefault();
-      currentIndex = (currentIndex - 1 + videos.length) % videos.length;
-      updateCarousel();
-    });
-
-    rightBtn.addEventListener("click", e => {
-      e.preventDefault();
-      currentIndex = (currentIndex + 1) % videos.length;
-      updateCarousel();
-    });
-
-    window.addEventListener("load", () => {
-      updateCarousel();
     });
 
     // YouTube API for vlog section

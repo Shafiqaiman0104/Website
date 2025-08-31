@@ -66,7 +66,7 @@
       font-weight: bold;
     }
 
-    /* TikTok Profile Card Styles */
+   /* TikTok Profile Card Styles */
     .tiktok-card {
       flex-direction: column;
       padding: 20px;
@@ -77,6 +77,7 @@
       overflow: hidden;
       border-radius: 8px;
       margin-bottom: 15px;
+      max-height: 270px; /* Limit height to 270px */
     }
     .tiktok-carousel-inner {
       display: flex;
@@ -91,7 +92,9 @@
     }
     .tiktok-carousel-item video {
       width: 100%;
+      max-height: 270px; /* Limit video height to 270px */
       border-radius: 8px;
+      object-fit: cover; /* Ensure video fills container */
     }
     .tiktok-carousel-controls {
       position: absolute;
@@ -112,14 +115,19 @@
       border-radius: 50%;
       cursor: pointer;
     }
-    .tiktok-profile-row {
+    .tiktok-profile-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+    }
+    .tiktok-profile-content {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 4px;
+      flex-grow: 1;
     }
     .tiktok-profile-img {
-      border-radius: 50%;
+      border-radius: 50%; /* Ensure avatar is circular */
       width: 60px;
       height: 60px;
       object-fit: cover;
@@ -127,6 +135,8 @@
     .tiktok-profile-info {
       display: flex;
       flex-direction: column;
+      margin-left: 12px;
+      text-align: left; /* Align text to the left */
     }
     .tiktok-nickname {
       margin: 0;
@@ -139,15 +149,10 @@
       color: #666;
       text-align: left;
     }
-    .tiktok-stats-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 12px;
-    }
     .tiktok-stats {
       display: flex;
-      gap: 30px;
+      gap: 20px;
+      margin-top: 10px;
     }
     .tiktok-stat {
       font-size: 16px;
@@ -162,7 +167,7 @@
       color: #666;
     }
     .tiktok-follow-btn {
-      padding: 6px 14px;
+      padding: 8px 16px;
       background: #fe2c55;
       color: white;
       font-size: 14px;
@@ -172,6 +177,8 @@
       text-decoration: none;
       font-weight: bold;
       transition: background 0.2s;
+      white-space: nowrap;
+      margin-left: 15px; /* Add spacing from profile info */
     }
     .tiktok-follow-btn:hover {
       background: #d91d45;

@@ -280,6 +280,123 @@
       justify-content: space-between;
     }
 
+.tcard {
+      
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+    }
+
+    /* Carousel */
+    .tcarousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .tcarousel-inner {
+      display: flex;
+      transition: transform 0.4s ease-in-out;
+      width: 300%;
+    }
+    .tcarousel-item {
+      min-width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+    }
+    .tcarousel-item video {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .tcarousel-controls {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 10px;
+    }
+    .tcarousel-controls button {
+      background: rgba(0,0,0,0.5);
+      border: none;
+      color: white;
+      font-size: 18px;
+      padding: 6px 10px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .tprofile-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+    .tprofile-info {
+      display: flex;
+      flex-direction: column;
+    }
+    p.tusername {
+      margin: 2px 0 0;
+      font-size: 14px;
+      color: #666;
+      text-align: left;
+    }
+    .tstats-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+    }
+    .tstats {
+      display: flex;
+      gap: 30px;
+    }
+    .tstat {
+      font-size: 16px;
+      font-weight: bold;
+      color: #222;
+      text-align: left;
+    }
+    .tstat span {
+      display: block;
+      font-size: 13px;
+      font-weight: normal;
+      color: #666;
+    }
+    .tfollow-btn {
+      padding: 6px 14px;
+      background: #fe2c55;
+      color: white;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    .tfollow-btn:hover {
+      background: #d91d45;
+    }
+ .timg {
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+    }
+    .tprofile-info h2 {
+      margin: 0;
+      font-size: 18px;
+      text-align: left;
+    }
+
+
     @media (min-width: 768px) {
       .vlog-grid {
         grid-template-columns: 1fr 1fr;
@@ -343,6 +460,56 @@
     <div class="bio">Welcome to MK Rimba Camp Park 🌿<br> Adventure • Nature • Relax</div>
 
     <h1>MK RIMBA CAMP PARK</h1>
+
+  <div class="tcard">
+    <!-- Carousel with 3 local videos -->
+    <div class="tcarousel">
+      <div class="tcarousel-inner" id="tcarouselInner">
+        <div class="tcarousel-item">
+          <video controls>
+            <source src="mkvideo.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="tcarousel-item">
+          <video controls>
+            <source src="mkvideo1.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="tcarousel-item">
+          <video controls>
+            <source src="mkvideo2.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="tcarousel-controls">
+        <button id="tprevBtn">&#8249;</button>
+        <button id="tnextBtn">&#8250;</button>
+      </div>
+    </div>
+
+    <div class="tprofile-row">
+      <img class="timg" id="tavatar" src="" alt="Profile Picture">
+      <div class="tprofile-info">
+        <h2 id="tnickname">Loading...</h2>
+        <p class="tusername">@<span id="tusername"></span></p>
+      </div>
+    </div>
+
+    <!-- Stats + Follow button row -->
+    <div class="tstats-row">
+      <div class="tstats">
+        <div class="tstat">
+          <div id="tfollowers">0</div>
+          <span>Followers</span>
+        </div>
+        <div class="tstat">
+          <div id="thearts">0</div>
+          <span>Likes</span>
+        </div>
+      </div>
+      <a id="tfollowBtn" class="tfollow-btn" target="_blank">Follow</a>
+    </div>
+  </div>
 
     <!-- Chatbot -->
     <a class="card" href="webChat.html" target="_blank">
@@ -624,6 +791,57 @@
     }
 
     videoIds.forEach(id => fetchStats(id));
+
+    const uid = "7247356375642637318"; // TikTok UID
+    const url = `https://free-tiktok-api-scraper-mobile-version.p.rapidapi.com/tok/v1/user_profile/?uid=${uid}`;
+
+    const options = {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-key': '5c5f65741dmshca9c1b43174b1eep10a0adjsn17de2d4044ca',
+        'x-rapidapi-host': 'free-tiktok-api-scraper-mobile-version.p.rapidapi.com'
+      }
+    };
+
+    fetch(url, options)
+      .then(response => response.json())
+      .then(data => {
+        console.log("Profile data:", data);
+        const profile = data.user;
+
+        if (!profile) {
+          document.getElementById("tnickname").textContent = "Profile not found!";
+          return;
+        }
+
+        document.getElementById("tavatar").src = profile.avatar_medium?.url_list?.[0] || "";
+        document.getElementById("tnickname").textContent = profile.nickname;
+        document.getElementById("tusername").textContent = profile.unique_id;
+        document.getElementById("tfollowers").textContent = profile.follower_count?.toLocaleString();
+        document.getElementById("thearts").textContent = profile.total_favorited?.toLocaleString();
+
+        // Update follow button link
+        document.getElementById("tfollowBtn").href = `https://www.tiktok.com/@${profile.unique_id}`;
+      })
+      .catch(error => {
+        console.error("Error fetching TikTok profile:", error);
+        document.getElementById("tnickname").textContent = "Error loading profile";
+      });
+
+    // Carousel logic
+    let tcurrentIndex = 0;
+    const inner = document.getElementById("tcarouselInner");
+    const totalItems = inner.children.length;
+
+    document.getElementById("tprevBtn").addEventListener("click", () => {
+      tcurrentIndex = (tcurrentIndex === 0) ? totalItems - 1 : tcurrentIndex - 1;
+      inner.style.transform = `translateX(-${tcurrentIndex * 100}%)`;
+    });
+
+    document.getElementById("tnextBtn").addEventListener("click", () => {
+      tcurrentIndex = (tcurrentIndex === totalItems - 1) ? 0 : tcurrentIndex + 1;
+      inner.style.transform = `translateX(-${tcurrentIndex * 100}%)`;
+    });
   </script>
 </body>
 </html>

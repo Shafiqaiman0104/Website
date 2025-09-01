@@ -649,7 +649,7 @@
       return "https://www.gstatic.com/youtube/img/branding/favicon/favicon_144.png";
     }
 
-    async function fetchStats(videoId) {
+        async function fetchStats(videoId) {
       try {
         const res = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`);
         const data = await res.json();
@@ -680,4 +680,71 @@
           document.getElementById(`stats-${videoId}`).innerHTML =
             `👍 ${likes} &nbsp;&nbsp; 👁️ ${views}`;
         } else {
-          document.getElementByI
+          document.getElementById(`stats-${videoId}`).innerHTML = "No stats available";
+        }
+      } catch (err) {
+        document.getElementById(`stats-${videoId}`).innerHTML = "Error loading stats";
+      }
+    }
+
+    videoIds.forEach(id => fetchStats(id));
+
+        // ✅ TikTok carousel logic  
+    const track = document.querySelector(".carousel-track");  
+    const videos = Array.from(track.children);  
+    const leftBtn = document.querySelector(".carousel-button.left");  
+    const rightBtn = document.querySelector(".carousel-button.right");  
+    let currentIndex = 1;  
+
+    function updateCarousel() {  
+      videos.forEach((video, index) => {  
+        video.classList.remove("active");  
+        video.pause();  
+      });  
+      const activeVideo = videos[currentIndex];  
+      activeVideo.classList.add("active");  
+      activeVideo.play();  
+
+      const offset = (track.clientWidth / 2) - (activeVideo.offsetWidth / 2);  
+      const translateX = -currentIndex * 170 + offset;  
+      track.style.transform = `translateX(${translateX}px)`;  
+    }  
+    leftBtn.addEventListener("click", e => {  
+      e.preventDefault();  
+      currentIndex = (currentIndex - 1 + videos.length) % videos.length;  
+      updateCarousel();  
+    });  
+    rightBtn.addEventListener("click", e => {  
+      e.preventDefault();  
+      currentIndex = (currentIndex + 1) % videos.length;  
+      updateCarousel();  
+    });  
+    window.addEventListener("load", updateCarousel);  
+
+    // ✅ TikTok API fetch profile  
+    const uid = "7247356375642637318";  
+    const url = `https://free-tiktok-api-scraper-mobile-version.p.rapidapi.com/tok/v1/user_profile/?uid=${uid}`;  
+    const options = {  
+      method: 'GET',  
+      headers: {  
+        'x-rapidapi-key': '5c5f65741dmshca9c1b43174b1eep10a0adjsn17de2d4044ca',  
+        'x-rapidapi-host': 'free-tiktok-api-scraper-mobile-version.p.rapidapi.com'  
+      }  
+    };  
+
+    fetch(url, options)  
+      .then(res => res.json())  
+      .then(data => {  
+        const profile = data.user;  
+        if (!profile) return;  
+        document.getElementById("tavatar").src = profile.avatar_medium?.url_list?.[0] || "";  
+        document.getElementById("tnickname").textContent = profile.nickname;  
+        document.getElementById("tusername").textContent = profile.unique_id;  
+        document.getElementById("tfollowers").textContent = profile.follower_count?.toLocaleString();  
+        document.getElementById("thearts").textContent = profile.total_favorited?.toLocaleString();  
+        document.getElementById("tfollowBtn").href = `https://www.tiktok.com/@${profile.unique_id}`;  
+      })  
+      .catch(err => console.error("TikTok API error:", err));  
+  </script>
+</body>
+  </html>

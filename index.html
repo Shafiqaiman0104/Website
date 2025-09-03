@@ -43,7 +43,7 @@
       align-items: center;
       padding: 15px;
       margin: 12px 0;
-      border-radius: 12px;
+      border-radius: 999px;
       background: white;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       cursor: pointer;
@@ -66,66 +66,140 @@
       font-weight: bold;
     }
 
-    /* TikTok video carousel */
-    .video-card {
-      flex-direction: column;
-      padding: 0;
-      overflow: hidden;
+        /* ✅ TikTok card merged */  
+    .tcard {  
+      background: #fff;  
+      border-radius: 12px;  
+      padding: 15px;  
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);  
+      margin: 15px 0;  
+    }  
+    .carousel {  
+      position: relative;  
+      display: flex;  
+      align-items: center;  
+      justify-content: center;  
+      overflow: hidden;  
+      width: 100%;  
+      height: 270px;  
+    }  
+    .carousel-track {  
+      display: flex;  
+      transition: transform 0.5s ease-in-out;  
+      align-items: flex-end;  
+    }  
+    .carousel video {  
+      width: 150px;  
+      height: 200px;  
+      margin: 0 10px;  
+      border-radius: 12px;  
+      object-fit: cover;  
+      opacity: 0.6;  
+      transform: scale(0.9);  
+      transition: all 0.4s ease;  
+    }  
+    .carousel video.active {  
+      width: 220px;  
+      height: 240px;  
+      opacity: 1;  
+      transform: scale(1) translateY(-20px);  
+      z-index: 2;  
+    }  
+    .carousel-button {  
+      position: absolute;  
+      top: 50%;  
+      transform: translateY(-50%);  
+      background: rgba(0,0,0,0.5);  
+      color: white;  
+      border: none;  
+      border-radius: 50%;  
+      width: 35px;  
+      height: 35px;  
+      cursor: pointer;  
+      font-size: 18px;  
+      z-index: 5;  
+    }  
+    .carousel-button.left { left: 10px; }  
+    .carousel-button.right { right: 10px; }  
+
+    .tprofile-row {  
+      display: flex;  
+      align-items: center;  
+      gap: 12px;  
+      margin-top: 12px;  
+    }  
+    .timg {  
+      border-radius: 50%;  
+      width: 60px;  
+      height: 60px;  
+      object-fit: cover;  
+    }  
+    .tprofile-info {  
+      display: flex;  
+      flex-direction: column;  
+      text-align: left;  
+    }  
+    .tprofile-info h2 {  
+      margin: 0;  
+      font-size: 18px;  
+    }  
+    p.tusername {  
+      margin: 2px 0 0;  
+      font-size: 14px;  
+      color: #666;  
+    }  
+    .tstats-row {  
+      display: flex;  
+      justify-content: space-between;  
+      align-items: center;  
+      margin-top: 12px;  
+    }  
+    .tstats {  
+      display: flex;  
+      gap: 30px;  
+    }  
+    .tstat {  
+      font-size: 16px;  
+      font-weight: bold;  
+      color: #222;  
+      text-align: left;  
+    }  
+    .tstat span {  
+      display: block;  
+      font-size: 13px;  
+      font-weight: normal;  
+      color: #666;  
+    }  
+    .tfollow-btn {  
+      padding: 6px 14px;  
+      background: #fe2c55;  
+      color: white;  
+      font-size: 14px;  
+      border: none;  
+      border-radius: 6px;  
+      cursor: pointer;  
+      text-decoration: none;  
+      font-weight: bold;  
+      transition: background 0.2s;  
+    }  
+    .tfollow-btn:hover {  
+      background: #d91d45;  
+    }  
+    .tiktokIconTitle img {
+      width: 40px;
+      height: 40px;
+      margin-right: 15px;
+      border-radius: 8px;
     }
-    .carousel {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      width: 100%;
-      height: 270px;
-    }
-    .carousel-track {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-      align-items: flex-end;
-    }
-    .carousel video {
-      width: 150px;
-      height: 200px;
-      margin: 0 10px;
-      border-radius: 12px;
-      object-fit: cover;
-      opacity: 0.6;
-      transform: scale(0.9);
-      transition: all 0.4s ease;
-    }
-    .carousel video.active {
-      width: 220px;
-      height: 240px;
-      opacity: 1;
-      transform: scale(1) translateY(-20px);
-      z-index: 2;
-    }
-    .carousel-button {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.5);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 35px;
-      height: 35px;
-      cursor: pointer;
-      font-size: 18px;
-      z-index: 5;
-    }
-    .carousel-button.left { left: 10px; }
-    .carousel-button.right { right: 10px; }
-    .video-card .content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 15px;
+    .tiktokIconTitle {
+  display: inline-flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: flex-start; /* align left */
     }
 
+    
     /* Units Section */
     .units-section {
       margin: 30px 0;
@@ -279,6 +353,26 @@
       display: flex;
       justify-content: space-between;
     }
+    .contact-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 5px 0 50px;
+}
+
+.contact-icons a {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-icons img {
+  width: 28px;
+  height: 28px;
+}
 
     @media (min-width: 768px) {
       .vlog-grid {
@@ -340,9 +434,22 @@
     <!-- Logo -->
     <div class="logo"></div>
         
-    <div class="bio">Welcome to MK Rimba Camp Park 🌿<br> Adventure • Nature • Relax</div>
+    <div class="bio"><b style="font-size: 20px;">@mkrimbacamp-vr.com</b><br><br>Welcome to MK Rimba Camp Park 📍 Pontian<br> Adventure • Nature • Relax</div>
 
-    <h1>MK RIMBA CAMP PARK</h1>
+<!-- Contact Icons Row -->
+<div class="contact-icons">
+  <!-- WhatsApp -->
+  <a href="https://wa.me/60197088144?text=Hello%20MK%20Rimba%20Camp%20Park%20👋" target="_blank">
+    <img src="https://img.icons8.com/?size=100&id=16712&format=png&color=000000" alt="WhatsApp">
+  </a>
+
+  <!-- Email -->
+  <a href="mailto:mkrimbacamppark.vr@gmail.com">
+    <img src="https://img.icons8.com/?size=100&id=124377&format=png&color=000000" alt="Email">
+  </a>
+</div>
+
+    <h2>MK RIMBA CAMP PARK</h2>
 
     <!-- Chatbot -->
     <a class="card" href="webChat.html" target="_blank">
@@ -350,39 +457,54 @@
       <span>MK Rimba Camp Chatbot</span>
     </a>
 
-    <!-- TikTok Video Carousel -->
-    <a class="card video-card" href="https://www.tiktok.com/@lynnarsat" target="_blank">
-      <div class="carousel">
-        <button class="carousel-button left">&#10094;</button>
-        <div class="carousel-track">
-          <video muted loop playsinline><source src="mkvideo.mp4" type="video/mp4"></video>
-          <video muted loop playsinline class="active"><source src="mkvideo1.mp4" type="video/mp4"></video>
-          <video muted loop playsinline><source src="mkvideo2.mp4" type="video/mp4"></video>
-        </div>
-        <button class="carousel-button right">&#10095;</button>
+        <!-- ✅ TikTok Card (merged) -->  
+    <div class="tcard">  
+      <div style="display: flex; justify-content: flex-start;">
+  <div class="tiktokIconTitle">
+    <img src="https://img.icons8.com/?size=100&id=kM0cd7be1NC1&format=png&color=000000" alt="TikTok Icon">
+    <span>TikTok</span>
+  </div>
       </div>
-      <div class="content">
-        <img src="https://img.icons8.com/color/48/tiktok--v1.png" alt="TikTok">
-        <span>Follow us on TikTok</span>
-      </div>
-    </a>
+      <div class="carousel">  
+        <button class="carousel-button left">&#10094;</button>  
+        <div class="carousel-track">  
+          <video muted loop playsinline><source src="mkvideo.mp4" type="video/mp4"></video>  
+          <video muted loop playsinline class="active"><source src="mkvideo1.mp4" type="video/mp4"></video>  
+          <video muted loop playsinline><source src="mkvideo2.mp4" type="video/mp4"></video>  
+        </div>  
+        <button class="carousel-button right">&#10095;</button>  
+      </div>  
 
-    <!-- WhatsApp -->
-    <a class="card" href="https://wa.me/60197088144?text=Hello%20MK%20Rimba%20Camp%20Park%20👋" target="_blank">
-      <img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="WhatsApp">
-      <span>WhatsApp MK Rimba Camp</span>
-    </a>
+      <div class="tprofile-row">  
+        <img class="timg" id="tavatar" src="" alt="Profile Picture">  
+        <div class="tprofile-info">  
+          <h2 id="tnickname">Loading...</h2>  
+          <p class="tusername">@<span id="tusername"></span></p>  
+        </div>  
+      </div>  
+
+      <div class="tstats-row">  
+        <div class="tstats">  
+          <div class="tstat">  
+            <div id="tfollowers">0</div>  
+            <span>Followers</span>  
+          </div>  
+          <div class="tstat">  
+            <div id="thearts">0</div>  
+            <span>Likes</span>  
+          </div>  
+        </div>  
+        <a id="tfollowBtn" class="tfollow-btn" target="_blank">  <img src="https://img.icons8.com/?size=100&id=RtrFapjqvvSP&format=png&color=000000" 
+       alt="Follow Icon" 
+       style="width:16px; height:16px; vertical-align:middle; margin-right:6px;">
+  Follow</a>  
+      </div>  
+    </div>  
 
     <!-- Facebook -->
     <a class="card" href="https://www.facebook.com/rimbacamppark" target="_blank">
       <img src="https://img.icons8.com/color/48/facebook-new.png" alt="Facebook">
       <span>Follow us on Facebook</span>
-    </a>
-
-    <!-- Email -->
-    <a class="card" href="mailto:mkrimbacamppark.vr@gmail.com">
-      <img src="https://img.icons8.com/color/48/gmail-new.png" alt="Email">
-      <span>Email Us</span>
     </a>
 
     <!-- Units Section -->
@@ -522,43 +644,6 @@
         ? "block" : "none";
     });
 
-    // TikTok carousel logic
-    const track = document.querySelector(".carousel-track");
-    const videos = Array.from(track.children);
-    const leftBtn = document.querySelector(".carousel-button.left");
-    const rightBtn = document.querySelector(".carousel-button.right");
-    let currentIndex = 1; // Start with middle video
-
-    function updateCarousel() {
-      videos.forEach((video, index) => {
-        video.classList.remove("active");
-        video.pause();
-      });
-      const activeVideo = videos[currentIndex];
-      activeVideo.classList.add("active");
-      activeVideo.play();
-
-      const offset = (track.clientWidth / 2) - (activeVideo.offsetWidth / 2);
-      const translateX = -currentIndex * 170 + offset;
-      track.style.transform = `translateX(${translateX}px)`;
-    }
-
-    leftBtn.addEventListener("click", e => {
-      e.preventDefault();
-      currentIndex = (currentIndex - 1 + videos.length) % videos.length;
-      updateCarousel();
-    });
-
-    rightBtn.addEventListener("click", e => {
-      e.preventDefault();
-      currentIndex = (currentIndex + 1) % videos.length;
-      updateCarousel();
-    });
-
-    window.addEventListener("load", () => {
-      updateCarousel();
-    });
-
     // YouTube API for vlog section
     const API_KEY = "AIzaSyBQZe9U42w2EP8zUKD58Vibnha_W-pQ_Pk";
     const videoIds = ["S21N2gBk73U","ImNLFlLXvsE","QPmIEKzP8lM","j5b0NBZdWZA","tWkMxxy8OOQ"];
@@ -585,7 +670,7 @@
       return "https://www.gstatic.com/youtube/img/branding/favicon/favicon_144.png";
     }
 
-    async function fetchStats(videoId) {
+        async function fetchStats(videoId) {
       try {
         const res = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`);
         const data = await res.json();
@@ -624,6 +709,63 @@
     }
 
     videoIds.forEach(id => fetchStats(id));
+
+        // ✅ TikTok carousel logic  
+    const track = document.querySelector(".carousel-track");  
+    const videos = Array.from(track.children);  
+    const leftBtn = document.querySelector(".carousel-button.left");  
+    const rightBtn = document.querySelector(".carousel-button.right");  
+    let currentIndex = 1;  
+
+    function updateCarousel() {  
+      videos.forEach((video, index) => {  
+        video.classList.remove("active");  
+        video.pause();  
+      });  
+      const activeVideo = videos[currentIndex];  
+      activeVideo.classList.add("active");  
+      activeVideo.play();  
+
+      const offset = (track.clientWidth / 2) - (activeVideo.offsetWidth / 2);  
+      const translateX = -currentIndex * 170 + offset;  
+      track.style.transform = `translateX(${translateX}px)`;  
+    }  
+    leftBtn.addEventListener("click", e => {  
+      e.preventDefault();  
+      currentIndex = (currentIndex - 1 + videos.length) % videos.length;  
+      updateCarousel();  
+    });  
+    rightBtn.addEventListener("click", e => {  
+      e.preventDefault();  
+      currentIndex = (currentIndex + 1) % videos.length;  
+      updateCarousel();  
+    });  
+    window.addEventListener("load", updateCarousel);  
+
+    // ✅ TikTok API fetch profile  
+    const uid = "7247356375642637318";  
+    const url = `https://free-tiktok-api-scraper-mobile-version.p.rapidapi.com/tok/v1/user_profile/?uid=${uid}`;  
+    const options = {  
+      method: 'GET',  
+      headers: {  
+        'x-rapidapi-key': '5c5f65741dmshca9c1b43174b1eep10a0adjsn17de2d4044ca',  
+        'x-rapidapi-host': 'free-tiktok-api-scraper-mobile-version.p.rapidapi.com'  
+      }  
+    };  
+
+    fetch(url, options)  
+      .then(res => res.json())  
+      .then(data => {  
+        const profile = data.user;  
+        if (!profile) return;  
+        document.getElementById("tavatar").src = profile.avatar_medium?.url_list?.[0] || "";  
+        document.getElementById("tnickname").textContent = profile.nickname;  
+        document.getElementById("tusername").textContent = profile.unique_id;  
+        document.getElementById("tfollowers").textContent = profile.follower_count?.toLocaleString();  
+        document.getElementById("thearts").textContent = profile.total_favorited?.toLocaleString();  
+        document.getElementById("tfollowBtn").href = `https://www.tiktok.com/@${profile.unique_id}`;  
+      })  
+      .catch(err => console.error("TikTok API error:", err));  
   </script>
 </body>
-</html>
+  </html>

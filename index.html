@@ -200,7 +200,7 @@
     }
 
     
-    /* Units Section */
+    /* ✅ Units Section (Updated from code 2) */
     .units-section {
       margin: 30px 0;
     }
@@ -222,18 +222,83 @@
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       overflow: hidden;
-      text-align: center;
+      text-align: left;
       scroll-snap-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .unit-card img {
       width: 100%;
       height: 150px;
       object-fit: cover;
+      display: block;
     }
-    .unit-card p {
+    .unit-details {
       padding: 10px;
+      flex: 1;
+    }
+    .unit-text h3 {
+      margin: 0;
+      font-size: 1rem;
       font-weight: bold;
-      color: #333;
+      color: #2c3e50;
+    }
+    .unit-text ul {
+      margin: 5px 0 0;
+      padding-left: 18px;
+      font-size: 0.85rem;
+      color: #555;
+    }
+    .unit-footer {
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px;
+    }
+    .see-more-btn {
+      padding: 6px 12px;
+      background: #0066cc;
+      color: white;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+    .see-more-btn:hover {
+      background: #004a99;
+    }
+
+    /* ✅ Popup Modal (From code 2) */
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background: rgba(0,0,0,0.8);
+    }
+    .popup-content {
+      margin: 50px auto;
+      display: block;
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 12px;
+    }
+    .popup-close {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .popup-close:hover {
+      color: #ccc;
     }
 
     /* Rental Section */
@@ -256,6 +321,7 @@
       margin: 12px 0;
       text-align: left;
       padding: 10px;
+      justify-content: space-between; /* ✅ space text + button */
     }
     .rental-card img {
       width: 120px;
@@ -507,64 +573,174 @@
       <span>Follow us on Facebook</span>
     </a>
 
-    <!-- Units Section -->
+    <!-- ✅ Updated Units Section (from code 2) -->
     <div class="units-section">
       <h2>Our Units</h2>
       <div class="unit-cards">
         <div class="unit-card">
           <img src="https://i.imgur.com/bym4rI8.jpeg" alt="Pondok A-Tent">
-          <p>Pondok A-Tent</p>
+          <div class="unit-details">
+            <div class="unit-text">
+              <h3>Pondok A-Tent</h3>
+              <ul>
+               <li>Peaceful outdoor retreat</li>
+               <li>Surrounded by gentle nature</li>
+               <li>Relaxed and cozy atmosphere</li>
+              </ul>
+            </div>
+          </div>
+          <div class="unit-footer">
+            <button class="see-more-btn" data-img="https://i.imgur.com/IFr4wQG.png">See More</button>
+          </div>
         </div>
+
         <div class="unit-card">
           <img src="https://i.imgur.com/DxD3ZrX.jpeg" alt="Camping Lot">
-          <p>Camping Lot</p>
+          <div class="unit-details">
+            <div class="unit-text">
+              <h3>Camping Lot</h3>
+              <ul>
+                <li>Open space</li>
+                <li>Suitable for tents</li>
+                <li>Close to nature</li>
+              </ul>
+            </div>
+          </div>
+          <div class="unit-footer">
+            <button class="see-more-btn" data-img="https://i.imgur.com/0v9jJCB.png">See More</button>
+          </div>
         </div>
+
         <div class="unit-card">
           <img src="https://i.imgur.com/dxaiTqH.jpeg" alt="Gazebo">
-          <p>Gazebo</p>
+          <div class="unit-details">
+            <div class="unit-text">
+              <h3>Gazebo</h3>
+              <ul>
+                <li>Cozy seating</li>
+                <li>Shaded rest area</li>
+                <li>Calm seaside scenery</li>
+                <li>Versatile area for special moments</li>
+              </ul>
+            </div>
+          </div>
+          <div class="unit-footer">
+            <button class="see-more-btn" data-img="https://i.imgur.com/9leopil.png">See More</button>
+          </div>
         </div>
+
         <div class="unit-card">
           <img src="https://i.imgur.com/aCuGWWu.jpeg" alt="Sea View">
-          <p>Sea View</p>
+          <div class="unit-details">
+            <div class="unit-text">
+              <h3>Sea View</h3>
+              <ul>
+                <li>Relaxing scenery</li>
+                <li>Sunset spot</li>
+                <li>Perfect for photos</li>
+                <li>Ideal spot for campervans and tents</li>
+              </ul>
+            </div>
+          </div>
+          <div class="unit-footer">
+            <button class="see-more-btn" data-img="https://i.imgur.com/tLSMp7N.png">See More</button>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Rental Items Section -->
-    <div class="rental-section">
-      <h2>Rental Items</h2>
-      <div class="rental-card">
-        <img src="rental.jpg" alt="ATV & Scooter">
-        <p>ATV & Scooter</p>
-      </div>
-      <div class="rental-card">
-        <img src="rental1.jpg" alt="Cooking Items">
-        <p>Cooking Items</p>
-      </div>
-      <div class="rental-card">
-        <img src="rental2.jpg" alt="Sleeping Gear">
-        <p>Sleeping Gear</p>
-      </div>
-    </div>
+ <!-- Rental Items Section -->
+<div class="rental-section">
+  <h2>Rental Items</h2>
 
-    <!-- Facilities Section -->
+  <div class="rental-card">
+    <img src="rental.jpg" alt="ATV & Scooter">
+    <div style="flex:1">
+      <p>ATV & Scooter</p>
+    </div>
+    <div class="unit-footer">
+      <button class="see-more-btn" data-img="https://i.imgur.com/nBeo7H9.png">See More</button>
+    </div>
+  </div>
+
+  <div class="rental-card">
+    <img src="rental1.jpg" alt="Cooking Items">
+    <div style="flex:1">
+      <p>Cooking Items</p>
+    </div>
+    <div class="unit-footer">
+      <button class="see-more-btn" data-img="https://i.imgur.com/OSFUhR8.png">See More</button>
+    </div>
+  </div>
+
+  <div class="rental-card">
+    <img src="rental2.jpg" alt="Sleeping Gear">
+    <div style="flex:1">
+      <p>Sleeping Gear</p>
+    </div>
+    <div class="unit-footer">
+      <button class="see-more-btn" data-img="https://i.imgur.com/AvStflL.png">See More</button>
+    </div>
+  </div>
+</div>
+
+
+ <!-- ✅ Enhanced Facilities Section -->
     <div class="units-section">
       <h2>Facilities</h2>
       <div class="unit-cards">
         <div class="unit-card">
           <img src="https://i.imgur.com/FyiWCPs.jpeg" alt="Swimming Pool">
-          <p>Swimming Pool</p>
+          <div class="unit-details">
+            <div class="unit-text">
+              <h3>Swimming Pool</h3>
+              <ul>
+                <li>Refreshing pool area</li>
+                <li>Perfect for hot days</li>
+                <li>Family-friendly</li>
+              </ul>
+            </div>
+          </div>
+          <div class="unit-footer">
+            <button class="see-more-btn" data-img="https://i.imgur.com/6pQmiAj.png">See More</button>
+          </div>
         </div>
+
         <div class="unit-card">
           <img src="https://i.imgur.com/mxakCwZ.jpeg" alt="Mosque">
-          <p>MOSQUE</p>
+          <div class="unit-details">
+            <div class="unit-text">
+              <h3>Mosque</h3>
+              <ul>
+                <li>Prayer facilities</li>
+                <li>Spiritual retreat</li>
+                <li>Peaceful environment</li>
+              </ul>
+            </div>
+          </div>
+          <div class="unit-footer">
+            <button class="see-more-btn" data-img="https://i.imgur.com/mxakCwZ.jpeg">See More</button>
+          </div>
         </div>
+
         <div class="unit-card">
           <img src="https://i.imgur.com/O6NCdec.jpeg" alt="Toilet">
-          <p>CLEAN & COMFORTABLE TOILET</p>
+          <div class="unit-details">
+            <div class="unit-text">
+              <h3>Clean & Comfortable Toilets</h3>
+              <ul>
+                <li>Hygienic facilities</li>
+                <li>Well-maintained</li>
+                <li>24/7 availability</li>
+              </ul>
+            </div>
+          </div>
+          <div class="unit-footer">
+            <button class="see-more-btn" data-img="https://i.imgur.com/O6NCdec.jpeg">See More</button>
+          </div>
         </div>
       </div>
-    </div>
+    </div>    
 
     <!-- ✅ Updated Vlog Section -->
     <div class="vlog-section">
@@ -631,6 +807,12 @@
     </div>
   </div>
 
+  <!-- ✅ Popup (From code 2) -->
+  <div id="popup" class="popup">
+    <span class="popup-close">&times; Back</span>
+    <img class="popup-content" id="popup-img">
+  </div>
+
   <!-- Floating Chat Bubble -->
   <div id="chat-bubble">💬</div>
   <iframe 
@@ -638,6 +820,7 @@
     src="https://botpress.mkrimbacamp-vr.com/lite/mk-ai-chatbot/?m=channel-web&v=Fullscreen&options=%7B%22hideWidget%22%3Atrue%2C%22config%22%3A%7B%22enableReset%22%3Atrue%2C%22enableTranscriptDownload%22%3Atrue%7D%7D">
   </iframe>
 
+  <script defer async src='https://cdn.trustindex.io/loader-cert.js?b4afcda5387e453532260edc2ed'></script>
   <script>
     // Chat bubble toggle
     const chatBubble = document.getElementById("chat-bubble");
@@ -770,6 +953,26 @@
         document.getElementById("tfollowBtn").href = `https://www.tiktok.com/@${profile.unique_id}`;  
       })  
       .catch(err => console.error("TikTok API error:", err));  
+
+    // ✅ Popup functionality (From code 2)
+    const popup = document.getElementById("popup");
+    const popupImg = document.getElementById("popup-img");
+    const popupClose = document.querySelector(".popup-close");
+
+    document.querySelectorAll(".see-more-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        popup.style.display = "block";
+        popupImg.src = btn.getAttribute("data-img");
+      });
+    });
+
+    popupClose.addEventListener("click", () => {
+      popup.style.display = "none";
+    });
+
+    popup.addEventListener("click", e => {
+      if (e.target === popup) popup.style.display = "none";
+    });
   </script>
 </body>
   </html>

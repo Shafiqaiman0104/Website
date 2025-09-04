@@ -321,6 +321,7 @@
       margin: 12px 0;
       text-align: left;
       padding: 10px;
+      justify-content: space-between; /* ✅ space text + button */
     }
     .rental-card img {
       width: 120px;
@@ -648,22 +649,41 @@
       </div>
     </div>
 
-    <!-- Rental Items Section -->
-    <div class="rental-section">
-      <h2>Rental Items</h2>
-      <div class="rental-card">
-        <img src="rental.jpg" alt="ATV & Scooter">
-        <p>ATV & Scooter</p>
-      </div>
-      <div class="rental-card">
-        <img src="rental1.jpg" alt="Cooking Items">
-        <p>Cooking Items</p>
-      </div>
-      <div class="rental-card">
-        <img src="rental2.jpg" alt="Sleeping Gear">
-        <p>Sleeping Gear</p>
-      </div>
+ <!-- Rental Items Section -->
+<div class="rental-section">
+  <h2>Rental Items</h2>
+
+  <div class="rental-card">
+    <img src="rental.jpg" alt="ATV & Scooter">
+    <div style="flex:1">
+      <p>ATV & Scooter</p>
     </div>
+    <div class="unit-footer">
+      <button class="see-more-btn" data-img="rental.jpg">See More</button>
+    </div>
+  </div>
+
+  <div class="rental-card">
+    <img src="rental1.jpg" alt="Cooking Items">
+    <div style="flex:1">
+      <p>Cooking Items</p>
+    </div>
+    <div class="unit-footer">
+      <button class="see-more-btn" data-img="rental1.jpg">See More</button>
+    </div>
+  </div>
+
+  <div class="rental-card">
+    <img src="rental2.jpg" alt="Sleeping Gear">
+    <div style="flex:1">
+      <p>Sleeping Gear</p>
+    </div>
+    <div class="unit-footer">
+      <button class="see-more-btn" data-img="rental2.jpg">See More</button>
+    </div>
+  </div>
+</div>
+
 
  <!-- ✅ Enhanced Facilities Section -->
     <div class="units-section">

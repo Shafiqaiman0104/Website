@@ -25,30 +25,14 @@
 </head>
 <body>
   <h2>Customer Reviews</h2>
-  <div id="reviews">Loading reviews…</div>
-
-  <script>
-    async function loadReviews() {
-      try {
-        const res = await fetch("reviews.json");
-        const data = await res.json();
-
-        // Insert the Elfsight embed code into the page
-        document.getElementById("reviews").innerHTML = data.content;
-
-        // ✅ Dynamically re-run Elfsight’s platform.js if needed
-        const script = document.createElement("script");
-        script.src = "https://elfsightcdn.com/platform.js";
-        script.async = true;
-        document.body.appendChild(script);
-
-      } catch (err) {
-        document.getElementById("reviews").innerText = "Failed to load reviews.";
-        console.error("❌ Error loading reviews:", err);
-      }
-    }
-
-    loadReviews();
-  </script>
+<div id="reviews-container">Loading...</div>
+<script>
+  fetch('reviews.json')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('reviews-container').innerHTML = data.content;
+    })
+    .catch(err => console.error(err));
+</script>
 </body>
 </html>

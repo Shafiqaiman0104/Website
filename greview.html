@@ -18,17 +18,29 @@
     text-align: center;
     margin-bottom: 20px;
   }
-  .review {
+
+  /* Carousel Container */
+  .carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+  .carousel {
     display: flex;
     gap: 15px;
-    border-bottom: 1px solid #ddd;
-    padding: 15px 0;
+    transition: transform 0.3s ease-in-out;
   }
-  .review:last-child {
-    border-bottom: none;
+  .review {
+    min-width: 300px;
+    flex: 0 0 auto;
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.1);
   }
+
   .avatar {
     flex-shrink: 0;
+    margin-bottom: 10px;
   }
   .avatar img {
     width: 50px;
@@ -37,7 +49,6 @@
     object-fit: cover;
   }
   .review-content {
-    flex: 1;
   }
   .review-header {
     display: flex;
@@ -49,23 +60,49 @@
     font-size: 1rem;
   }
   .date {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #666;
   }
   .rating {
-    color: #f5a623; /* gold stars */
+    color: #f5a623;
     margin: 5px 0;
   }
   .review-text {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: #333;
   }
+
+  /* Arrows */
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.9);
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    z-index: 10;
+  }
+  .prev { left: -15px; }
+  .next { right: -15px; }
+
 </style>
 </head>
 <body>
 
 <h2>Customer Reviews</h2>
-<div id="reviews"></div>
+<div class="carousel-wrapper">
+  <button class="carousel-btn prev">&#8249;</button>
+  <div class="carousel" id="reviews-carousel"></div>
+  <button class="carousel-btn next">&#8250;</button>
+</div>
 
 <script>
 fetch('reviews.json')
@@ -75,26 +112,16 @@ fetch('reviews.json')
     tempDiv.innerHTML = data.content;
 
     const reviewNodes = tempDiv.querySelectorAll('.es-review-container');
-    const reviewsContainer = document.getElementById('reviews');
+    const carousel = document.getElementById('reviews-carousel');
 
     reviewNodes.forEach(node => {
-      // Extract avatar
       const avatar = node.querySelector('.es-avatar-image')?.src || '';
-
-      // Extract author name
       const author = node.querySelector('.es-review-author-name')?.textContent || 'Anonymous';
-
-      // Extract rating (count filled stars)
       const filledStars = node.querySelectorAll('.es-rating-stars-item-filled').length;
       const ratingStars = '★'.repeat(filledStars) + '☆'.repeat(5 - filledStars);
-
-      // Extract review text
       const text = node.querySelector('.es-text-shortener')?.textContent || '';
-
-      // Extract date
       const date = node.querySelector('.es-review-info-date')?.textContent || '';
 
-      // Create review element
       const reviewEl = document.createElement('div');
       reviewEl.className = 'review';
       reviewEl.innerHTML = `
@@ -108,7 +135,27 @@ fetch('reviews.json')
           <div class="review-text">${text}</div>
         </div>
       `;
-      reviewsContainer.appendChild(reviewEl);
+      carousel.appendChild(reviewEl);
+    });
+
+    // Carousel functionality
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+    let scrollAmount = 0;
+    const scrollStep = 320; // width of review + gap
+
+    nextBtn.addEventListener('click', () => {
+      scrollAmount += scrollStep;
+      if(scrollAmount > carousel.scrollWidth - carousel.clientWidth){
+        scrollAmount = carousel.scrollWidth - carousel.clientWidth;
+      }
+      carousel.style.transform = `translateX(-${scrollAmount}px)`;
+    });
+
+    prevBtn.addEventListener('click', () => {
+      scrollAmount -= scrollStep;
+      if(scrollAmount < 0) scrollAmount = 0;
+      carousel.style.transform = `translateX(-${scrollAmount}px)`;
     });
   })
   .catch(err => console.error(err));

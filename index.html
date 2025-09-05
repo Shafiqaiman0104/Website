@@ -808,7 +808,7 @@
 
     <div id="reviews">Loading reviews...</div>
     <script>
-fetch("/reviews.json")
+fetch("/public/reviews.json")
   .then(res => res.json())
   .then(data => {
     document.getElementById("reviews").innerHTML = data.content;

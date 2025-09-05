@@ -25,23 +25,26 @@
 </head>
 <body>
   <h2>Customer Reviews</h2>
-<div id="reviews-carousel">sa</div>
-
+<div id="reviews-carousel"></div>
 <script>
-  fetch('reviews.json')
-    .then(res => res.json())
-    .then(data => {
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = data.content;
+fetch('reviews.json')
+  .then(res => res.json())
+  .then(data => {
+    // Create a temporary container to parse the full HTML
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = data.content; // assuming all HTML is in data.content
 
-      // Grab only the carousel
-      const carousel = tempDiv.querySelector('.carousel');
+    // Grab the Carousel using the big class
+    const carousel = tempDiv.querySelector('.CarouselLayout__CarouselContainer-sc-7e4ccb03-1');
 
-      // Insert into page
-      if (carousel) {
-        document.getElementById('reviews-carousel').appendChild(carousel);
-      }
-    });
+    // Append it to our page if found
+    if (carousel) {
+      document.getElementById('reviews-carousel').appendChild(carousel);
+    } else {
+      console.error('Carousel not found in reviews.json');
+    }
+  })
+  .catch(err => console.error(err));
 </script>
 </body>
 </html>

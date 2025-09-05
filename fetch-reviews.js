@@ -1,5 +1,6 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs");
+const path = require("path");
 
 (async () => {
   try {
@@ -11,21 +12,21 @@ const fs = require("fs");
     });
     const page = await browser.newPage();
 
-    // Go to the Elfsight widget URL
-    const widgetUrl = "https://apps.elfsight.com/widget/6a852654-1103-4583-a6fc-9830b6732e40/";
-    await page.goto(widgetUrl, { waitUntil: "networkidle2" });
+    const filePath = `file:${path.join(__dirname, "fetch.html")}`;
+    await page.goto(filePath, { waitUntil: "networkidle2" });
 
-    // Wait for iframe to appear
-    const iframeElement = await page.waitForSelector("iframe", { timeout: 60000 });
-    const iframe = await iframeElement.contentFrame();
+    // Wait for Elfsight container
+    await page.waitForSelector(".elfsight-app-6a852654-1103-4583-a6fc-9830b6732e40", { timeout: 60000 });
 
-    // Wait for the reviews container inside the iframe
-    await iframe.waitForSelector(".eapps-google-reviews", { timeout: 60000 });
+    // Give some extra time for widget JS to render reviews
+    await page.waitForTimeout(10000);
 
-    // Extract the reviews HTML
-    const reviewsHtml = await iframe.$eval(".eapps-google-reviews", el => el.outerHTML);
+    // Grab the inner HTML of the container
+    const reviewsHtml = await page.$eval(
+      ".elfsight-app-6a852654-1103-4583-a6fc-9830b6732e40",
+      el => el.innerHTML
+    );
 
-    // Save to reviews.json
     fs.writeFileSync("reviews.json", JSON.stringify({ content: reviewsHtml }, null, 2));
 
     console.log("✅ Reviews successfully saved to reviews.json");
@@ -33,6 +34,5 @@ const fs = require("fs");
     await browser.close();
   } catch (err) {
     console.error("❌ Error fetching reviews:", err);
-    // Keep old reviews.json intact if error occurs
   }
 })();

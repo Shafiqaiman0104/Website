@@ -18,31 +18,59 @@
       text-align: center;
       margin-bottom: 20px;
     }
-    #reviews {
-      margin-top: 20px;
+    .review {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+    }
+    .review:last-child {
+      border-bottom: none;
+    }
+    .review .rating {
+      color: #f5a623;
+      font-weight: bold;
+    }
+    .review .text {
+      margin-top: 5px;
+    }
+    .review .author {
+      font-size: 0.9rem;
+      color: #555;
     }
   </style>
 </head>
 <body>
   <h2>Customer Reviews</h2>
-<div id="reviews-carousel"></div>
-<script>
-fetch('reviews.json')
-  .then(res => res.json())
-  .then(data => {
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = data.content; // full HTML from reviews.json
+  <div id="reviews"></div>
 
-    // Grab only the EmbedRoot container (where the reviews carousel lives)
-    const carousel = tempDiv.querySelector('.EmbedRoot__Root-sc-319cb1a5-0');
+  <script>
+    fetch('reviews.json')
+      .then(res => res.json())
+      .then(data => {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = data.content; // full HTML from reviews.json
 
-    if (carousel) {
-      document.getElementById('reviews-carousel').appendChild(carousel);
-    } else {
-      console.error('Carousel not found in reviews.json');
-    }
-  })
-  .catch(err => console.error(err));
-</script>
+        // Grab all individual reviews - adjust selector based on your widget
+        const reviewNodes = tempDiv.querySelectorAll('.ReviewCard, .review'); // example class names
+
+        const reviewsContainer = document.getElementById('reviews');
+
+        reviewNodes.forEach(node => {
+          const rating = node.querySelector('.Rating__Value, .rating')?.textContent || 'N/A';
+          const text = node.querySelector('.ReviewText__Text, .text')?.textContent || '';
+          const author = node.querySelector('.ReviewAuthor__Name, .author')?.textContent || 'Anonymous';
+
+          const reviewEl = document.createElement('div');
+          reviewEl.className = 'review';
+          reviewEl.innerHTML = `
+            <div class="rating">Rating: ${rating}</div>
+            <div class="text">${text}</div>
+            <div class="author">- ${author}</div>
+          `;
+          reviewsContainer.appendChild(reviewEl);
+        });
+
+      })
+      .catch(err => console.error(err));
+  </script>
 </body>
 </html>

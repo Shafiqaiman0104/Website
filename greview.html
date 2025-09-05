@@ -31,15 +31,15 @@ fetch('reviews.json')
   .then(res => res.json())
   .then(data => {
     const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = data.content; // all HTML from reviews.json
+    tempDiv.innerHTML = data.content; // full HTML from reviews.json
 
-    // Grab only the Elfsight widget container
-    const carousel = tempDiv.querySelector('.elfsight-app-6a852654-1103-4583-a6fc-9830b6732e40');
+    // Grab only the EmbedRoot container (where the reviews carousel lives)
+    const carousel = tempDiv.querySelector('.EmbedRoot__Root-sc-319cb1a5-0');
 
     if (carousel) {
       document.getElementById('reviews-carousel').appendChild(carousel);
     } else {
-      console.error('Elfsight widget not found in reviews.json');
+      console.error('Carousel not found in reviews.json');
     }
   })
   .catch(err => console.error(err));

@@ -28,6 +28,7 @@
       display: flex;
       gap: 15px;
       scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
     }
 
     .review {
@@ -41,6 +42,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      scroll-snap-align: start;
     }
 
     .review-header {
@@ -137,32 +139,24 @@
         const reviewNodes = tempDiv.querySelectorAll('.es-review-container');
         const carousel = document.getElementById('reviews-carousel');
 
-        const reviews = [];
-
         reviewNodes.forEach(node => {
           const name = node.querySelector('.es-review-author-name')?.textContent || 'Anonymous';
           const avatar = node.querySelector('.es-avatar-image')?.src || '';
           const date = node.querySelector('.es-review-info-date')?.textContent || '';
           const ratingNode = node.querySelector('.es-rating-container.es-review-content-rating');
           const rating = ratingNode ? ratingNode.querySelectorAll('.es-rating-stars-item-filled').length : 0;
-          const text = (node.querySelector('.es-text-shortener')?.textContent || '').replace(/\n/g, '\n');
+          const text = (node.querySelector('.es-text-shortener')?.textContent || '').replace(/\n/g, '<br>');
 
-          reviews.push({name, avatar, rating, text, date});
-        });
-
-        // Duplicate reviews for infinite loop
-        const allReviews = [...reviews, ...reviews];
-        allReviews.forEach(r => {
           const reviewDiv = document.createElement('div');
           reviewDiv.classList.add('review');
           reviewDiv.innerHTML = `
             <div class="review-header">
-              ${r.avatar ? `<img src="${r.avatar}" alt="${r.name}"/>` : ''}
-              <div class="review-author">${r.name}</div>
+              ${avatar ? `<img src="${avatar}" alt="${name}"/>` : ''}
+              <div class="review-author">${name}</div>
             </div>
-            <div class="review-rating">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
-            <div class="review-text">${r.text.replace(/\n/g, '<br>')}</div>
-            <div class="review-date">${r.date}</div>
+            <div class="review-rating">${'★'.repeat(rating)}${'☆'.repeat(5 - rating)}</div>
+            <div class="review-text">${text}</div>
+            <div class="review-date">${date}</div>
           `;
           carousel.appendChild(reviewDiv);
         });
@@ -170,37 +164,41 @@
         const cardWidth = 315; // card width + gap
         let scrollAmount = 0;
 
-        function autoSwipeFunc() {
+        // Auto-swipe
+        let autoSwipe = setInterval(() => {
           scrollAmount += cardWidth;
-          if (scrollAmount >= carousel.scrollWidth / 2) { // reset halfway (original length)
-            scrollAmount = 0;
-          }
+          if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) scrollAmount = 0;
           carousel.scrollTo({ left: scrollAmount, behavior: 'smooth' });
-        }
+        }, 3000);
 
-        let autoSwipe = setInterval(autoSwipeFunc, 3000);
-
+        // Buttons
         const prevBtn = document.querySelector('.prev');
         const nextBtn = document.querySelector('.next');
 
         prevBtn.addEventListener('click', () => {
           scrollAmount -= cardWidth;
-          if (scrollAmount < 0) scrollAmount = carousel.scrollWidth / 2 - cardWidth;
+          if (scrollAmount < 0) scrollAmount = 0;
           carousel.scrollTo({ left: scrollAmount, behavior: 'smooth' });
           resetAutoSwipe();
         });
 
         nextBtn.addEventListener('click', () => {
-          autoSwipeFunc();
+          scrollAmount += cardWidth;
+          if (scrollAmount > carousel.scrollWidth - carousel.clientWidth) scrollAmount = 0;
+          carousel.scrollTo({ left: scrollAmount, behavior: 'smooth' });
           resetAutoSwipe();
         });
 
         function resetAutoSwipe() {
           clearInterval(autoSwipe);
-          autoSwipe = setInterval(autoSwipeFunc, 3000);
+          autoSwipe = setInterval(() => {
+            scrollAmount += cardWidth;
+            if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) scrollAmount = 0;
+            carousel.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+          }, 3000);
         }
       })
       .catch(err => console.error(err));
   </script>
 </body>
-</html>
+  </html>

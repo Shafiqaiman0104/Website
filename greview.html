@@ -25,14 +25,23 @@
 </head>
 <body>
   <h2>Customer Reviews</h2>
-<div id="reviews-container">Loading...</div>
+<div id="reviews-carousel">sa</div>
+
 <script>
   fetch('reviews.json')
-    .then(response => response.json())
+    .then(res => res.json())
     .then(data => {
-      document.getElementById('reviews-container').innerHTML = data.content;
-    })
-    .catch(err => console.error(err));
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = data.content;
+
+      // Grab only the carousel
+      const carousel = tempDiv.querySelector('.carousel');
+
+      // Insert into page
+      if (carousel) {
+        document.getElementById('reviews-carousel').appendChild(carousel);
+      }
+    });
 </script>
 </body>
 </html>

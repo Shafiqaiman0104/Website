@@ -30,18 +30,16 @@
 fetch('reviews.json')
   .then(res => res.json())
   .then(data => {
-    // Create a temporary container to parse the full HTML
     const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = data.content; // assuming all HTML is in data.content
+    tempDiv.innerHTML = data.content; // all HTML from reviews.json
 
-    // Grab the Carousel using the big class
-    const carousel = tempDiv.querySelector('.CarouselLayout__CarouselContainer-sc-7e4ccb03-1');
+    // Grab only the Elfsight widget container
+    const carousel = tempDiv.querySelector('.elfsight-app-6a852654-1103-4583-a6fc-9830b6732e40');
 
-    // Append it to our page if found
     if (carousel) {
       document.getElementById('reviews-carousel').appendChild(carousel);
     } else {
-      console.error('Carousel not found in reviews.json');
+      console.error('Elfsight widget not found in reviews.json');
     }
   })
   .catch(err => console.error(err));

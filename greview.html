@@ -147,7 +147,18 @@ fetch('reviews.json')
     const prevBtn = document.querySelector('.prev');
     const nextBtn = document.querySelector('.next');
     let scrollAmount = 0;
-    const scrollStep = 320; // width of review + gap
+
+    function getScrollStep() {
+      const card = carousel.querySelector('.review');
+      const gap = 15; // same as CSS gap
+      return card ? card.offsetWidth + gap : 315; 
+    }
+
+    let scrollStep = getScrollStep();
+
+    window.addEventListener('resize', () => {
+      scrollStep = getScrollStep();
+    });
 
     nextBtn.addEventListener('click', () => {
       scrollAmount += scrollStep;

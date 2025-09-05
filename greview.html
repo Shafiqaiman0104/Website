@@ -36,10 +36,11 @@
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 1px 6px rgba(0,0,0,0.1);
-    word-wrap: break-word; /* wrap long text */
+    word-wrap: break-word;
   }
 
   .avatar {
+    position: relative;
     flex-shrink: 0;
     margin-bottom: 10px;
   }
@@ -49,20 +50,42 @@
     border-radius: 50%;
     object-fit: cover;
   }
+  .avatar-badge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background: url('https://img.icons8.com/color/48/google-logo.png') no-repeat center/contain;
+  }
+
   .review-content {}
   .review-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 5px;
   }
   .author {
     font-weight: bold;
     font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .es-verified-badge {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url('https://img.icons8.com/color/48/checked.png') no-repeat center/contain;
   }
   .date {
     font-size: 0.8rem;
     color: #666;
+    margin-top: 2px;
   }
+
   .rating {
     color: #f5a623;
     margin: 5px 0;
@@ -130,12 +153,18 @@ fetch('reviews.json')
       const reviewEl = document.createElement('div');
       reviewEl.className = 'review';
       reviewEl.innerHTML = `
-        <div class="avatar"><img src="${avatar}" alt="${author}"></div>
+        <div class="avatar">
+          <img src="${avatar}" alt="${author}">
+          <span class="avatar-badge"></span>
+        </div>
         <div class="review-content">
           <div class="review-header">
-            <div class="author">${author}</div>
-            <div class="date">${date}</div>
+            <div class="author">
+              ${author}
+              <span class="es-verified-badge"></span>
+            </div>
           </div>
+          <div class="date">${date}</div>
           <div class="rating">${ratingStars}</div>
           <div class="review-text">${text}</div>
         </div>
@@ -150,8 +179,8 @@ fetch('reviews.json')
 
     function getScrollStep() {
       const card = carousel.querySelector('.review');
-      const gap = 15; // same as CSS gap
-      return card ? card.offsetWidth + gap : 315; 
+      const gap = 15; 
+      return card ? card.offsetWidth + gap : 315;   
     }
 
     let scrollStep = getScrollStep();
@@ -163,7 +192,7 @@ fetch('reviews.json')
     nextBtn.addEventListener('click', () => {
       scrollAmount += scrollStep;
       if(scrollAmount > carousel.scrollWidth - carousel.clientWidth){
-        scrollAmount = 0; // loop to start
+        scrollAmount = 0; 
       }
       carousel.style.transform = `translateX(-${scrollAmount}px)`;
     });
@@ -184,4 +213,4 @@ fetch('reviews.json')
 </script>
 
 </body>
-</html>
+  </html>

@@ -806,6 +806,18 @@
     <h2>What Our Customers Say ⭐</h2>
     <script defer async src='https://cdn.trustindex.io/loader.js?2654ca8528738985a7864f886ac'></script>
 
+    <div id="reviews">Loading reviews...</div>
+    <script>
+fetch("/reviews.json")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("reviews").innerHTML = data.content;
+  })
+  .catch(err => {
+    document.getElementById("reviews").innerHTML = "Error loading reviews.";
+  });
+</script>
+
     <div class="footer">
       © 2025 MK RIMBA CAMP PARK
     </div>

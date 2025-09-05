@@ -1,76 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Google Reviews</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 800px;
-      margin: 30px auto;
-      background: #f9f9f9;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .review {
-      border-bottom: 1px solid #ddd;
-      padding: 10px 0;
-    }
-    .review:last-child {
-      border-bottom: none;
-    }
-    .review .rating {
-      color: #f5a623;
-      font-weight: bold;
-    }
-    .review .text {
-      margin-top: 5px;
-    }
-    .review .author {
-      font-size: 0.9rem;
-      color: #555;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Customer Reviews</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 30px auto;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .review {
+    display: flex;
+    gap: 15px;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+  }
+  .review:last-child {
+    border-bottom: none;
+  }
+  .avatar {
+    flex-shrink: 0;
+  }
+  .avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .review-content {
+    flex: 1;
+  }
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .author {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  .date {
+    font-size: 0.85rem;
+    color: #666;
+  }
+  .rating {
+    color: #f5a623; /* gold stars */
+    margin: 5px 0;
+  }
+  .review-text {
+    font-size: 0.95rem;
+    color: #333;
+  }
+</style>
 </head>
 <body>
-  <h2>Customer Reviews</h2>
-  <div id="reviews"></div>
 
-  <script>
-    fetch('reviews.json')
-      .then(res => res.json())
-      .then(data => {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = data.content; // full HTML from reviews.json
+<h2>Customer Reviews</h2>
+<div id="reviews"></div>
 
-        // Grab all individual reviews - adjust selector based on your widget
-        const reviewNodes = tempDiv.querySelectorAll('.ReviewCard, .review'); // example class names
+<script>
+fetch('reviews.json')
+  .then(res => res.json())
+  .then(data => {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = data.content;
 
-        const reviewsContainer = document.getElementById('reviews');
+    const reviewNodes = tempDiv.querySelectorAll('.es-review-container');
+    const reviewsContainer = document.getElementById('reviews');
 
-        reviewNodes.forEach(node => {
-          const rating = node.querySelector('.Rating__Value, .rating')?.textContent || 'N/A';
-          const text = node.querySelector('.ReviewText__Text, .text')?.textContent || '';
-          const author = node.querySelector('.ReviewAuthor__Name, .author')?.textContent || 'Anonymous';
+    reviewNodes.forEach(node => {
+      // Extract avatar
+      const avatar = node.querySelector('.es-avatar-image')?.src || '';
 
-          const reviewEl = document.createElement('div');
-          reviewEl.className = 'review';
-          reviewEl.innerHTML = `
-            <div class="rating">Rating: ${rating}</div>
-            <div class="text">${text}</div>
-            <div class="author">- ${author}</div>
-          `;
-          reviewsContainer.appendChild(reviewEl);
-        });
+      // Extract author name
+      const author = node.querySelector('.es-review-author-name')?.textContent || 'Anonymous';
 
-      })
-      .catch(err => console.error(err));
-  </script>
+      // Extract rating (count filled stars)
+      const filledStars = node.querySelectorAll('.es-rating-stars-item-filled').length;
+      const ratingStars = '★'.repeat(filledStars) + '☆'.repeat(5 - filledStars);
+
+      // Extract review text
+      const text = node.querySelector('.es-text-shortener')?.textContent || '';
+
+      // Extract date
+      const date = node.querySelector('.es-review-info-date')?.textContent || '';
+
+      // Create review element
+      const reviewEl = document.createElement('div');
+      reviewEl.className = 'review';
+      reviewEl.innerHTML = `
+        <div class="avatar"><img src="${avatar}" alt="${author}"></div>
+        <div class="review-content">
+          <div class="review-header">
+            <div class="author">${author}</div>
+            <div class="date">${date}</div>
+          </div>
+          <div class="rating">${ratingStars}</div>
+          <div class="review-text">${text}</div>
+        </div>
+      `;
+      reviewsContainer.appendChild(reviewEl);
+    });
+  })
+  .catch(err => console.error(err));
+</script>
+
 </body>
 </html>

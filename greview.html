@@ -19,9 +19,10 @@
 
   /* Carousel Container */
   .carousel-wrapper {
-    position: relative;
-    overflow: hidden;
-    padding-bottom: 15px;
+  position: relative;
+  overflow-x: hidden; /* hide next/prev cards */
+  overflow-y: visible; /* allow shadow to show below */
+  padding-bottom: 10px; /* optional extra space for shadow */
   }
   .carousel {
     display: flex;

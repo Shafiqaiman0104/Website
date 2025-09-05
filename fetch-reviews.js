@@ -18,8 +18,8 @@ const path = require("path");
     // Wait for Elfsight container
     await page.waitForSelector(".elfsight-app-6a852654-1103-4583-a6fc-9830b6732e40", { timeout: 60000 });
 
-    // Give some extra time for widget JS to render reviews
-    await page.waitForTimeout(10000);
+    // Corrected function name
+    await page.waitForTimeout(10000); // wait extra 10 seconds for widget JS
 
     // Grab the inner HTML of the container
     const reviewsHtml = await page.$eval(

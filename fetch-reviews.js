@@ -1,9 +1,9 @@
 // fetch-reviews.js
-import fs from "fs";
-import fetch from "node-fetch";
+const fs = require("fs");
+const fetch = require("node-fetch");
 
 const WIDGET_URL = "https://apps.elfsight.com/widget/6a852654-1103-4583-a6fc-9830b6732e40";
-const CACHE_FILE = "./public/reviews.json"; // store in /public so Express can serve it
+const CACHE_FILE = "./public/reviews.json";
 
 async function fetchReviews() {
   try {
@@ -18,4 +18,4 @@ async function fetchReviews() {
   }
 }
 
-await fetchReviews();
+fetchReviews();

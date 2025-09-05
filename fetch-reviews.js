@@ -1,12 +1,13 @@
 // fetch-reviews.js
 const fs = require("fs");
+const path = require("path");
 
 const WIDGET_URL = "https://apps.elfsight.com/widget/6a852654-1103-4583-a6fc-9830b6732e40";
-const CACHE_FILE = "./public/reviews.json";
+const CACHE_FILE = path.join(__dirname, "reviews.json");
 
 async function fetchReviews() {
   try {
-    const res = await fetch(WIDGET_URL); // ✅ Native fetch (Node 18+)
+    const res = await fetch(WIDGET_URL); // Native fetch (Node 18+)
     if (!res.ok) throw new Error(`HTTP error! ${res.status}`);
     const text = await res.text();
 

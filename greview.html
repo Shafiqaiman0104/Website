@@ -1,165 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Customer Reviews</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: 30px auto;
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  }
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Google Reviews</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 30px auto;
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-  /* Carousel Container */
-  .carousel-wrapper {
-    position: relative;
-    overflow: hidden;
-  }
-  .carousel {
-    display: flex;
-    gap: 15px;
-    transition: transform 0.3s ease-in-out;
-  }
-  .review {
-    min-width: 300px;
-    flex: 0 0 auto;
-    background: #fff;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.1);
-  }
+    .carousel-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
 
-  .avatar {
-    flex-shrink: 0;
-    margin-bottom: 10px;
-  }
-  .avatar img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  .review-content {
-  }
-  .review-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .author {
-    font-weight: bold;
-    font-size: 1rem;
-  }
-  .date {
-    font-size: 0.8rem;
-    color: #666;
-  }
-  .rating {
-    color: #f5a623;
-    margin: 5px 0;
-  }
-  .review-text {
-    font-size: 0.9rem;
-    color: #333;
-  }
+    #reviews-carousel {
+      display: flex;
+      gap: 15px;
+      scroll-behavior: smooth;
+    }
 
-  /* Arrows */
-  .carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.9);
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 1.2rem;
-    z-index: 10;
-  }
-  .prev { left: -15px; }
-  .next { right: -15px; }
+    .review {
+      flex: 0 0 auto;
+      width: 300px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+      word-wrap: break-word;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-</style>
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .review-header img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .review-author {
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .review-rating {
+      color: #f5b50a;
+      font-size: 0.9rem;
+    }
+
+    .review-text {
+      font-size: 0.9rem;
+      color: #333;
+      white-space: pre-wrap;
+    }
+
+    .review-date {
+      font-size: 0.8rem;
+      color: #888;
+      text-align: right;
+    }
+
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      z-index: 10;
+    }
+
+    .carousel-button:hover {
+      background: rgba(0,0,0,0.7);
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    @media (max-width: 650px) {
+      #reviews-carousel {
+        justify-content: center;
+      }
+      .review {
+        width: 90%;
+      }
+      .carousel-button {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <h2>Customer Reviews</h2>
+  <div class="carousel-wrapper">
+    <button class="carousel-button prev">&#10094;</button>
+    <div id="reviews-carousel"></div>
+    <button class="carousel-button next">&#10095;</button>
+  </div>
 
-<h2>Customer Reviews</h2>
-<div class="carousel-wrapper">
-  <button class="carousel-btn prev">&#8249;</button>
-  <div class="carousel" id="reviews-carousel"></div>
-  <button class="carousel-btn next">&#8250;</button>
-</div>
+  <script>
+    fetch('reviews.json')
+      .then(res => res.json())
+      .then(data => {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = data.content;
 
-<script>
-fetch('reviews.json')
-  .then(res => res.json())
-  .then(data => {
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = data.content;
+        const reviewNodes = tempDiv.querySelectorAll('.es-review-container');
+        const carousel = document.getElementById('reviews-carousel');
 
-    const reviewNodes = tempDiv.querySelectorAll('.es-review-container');
-    const carousel = document.getElementById('reviews-carousel');
+        const reviews = [];
 
-    reviewNodes.forEach(node => {
-      const avatar = node.querySelector('.es-avatar-image')?.src || '';
-      const author = node.querySelector('.es-review-author-name')?.textContent || 'Anonymous';
-      const filledStars = node.querySelectorAll('.es-rating-stars-item-filled').length;
-      const ratingStars = '★'.repeat(filledStars) + '☆'.repeat(5 - filledStars);
-      const text = node.querySelector('.es-text-shortener')?.textContent || '';
-      const date = node.querySelector('.es-review-info-date')?.textContent || '';
+        reviewNodes.forEach(node => {
+          const name = node.querySelector('.es-review-author-name')?.textContent || 'Anonymous';
+          const avatar = node.querySelector('.es-avatar-image')?.src || '';
+          const date = node.querySelector('.es-review-info-date')?.textContent || '';
+          const ratingNode = node.querySelector('.es-rating-container.es-review-content-rating');
+          const rating = ratingNode ? ratingNode.querySelectorAll('.es-rating-stars-item-filled').length : 0;
+          const text = (node.querySelector('.es-text-shortener')?.textContent || '').replace(/\n/g, '\n');
 
-      const reviewEl = document.createElement('div');
-      reviewEl.className = 'review';
-      reviewEl.innerHTML = `
-        <div class="avatar"><img src="${avatar}" alt="${author}"></div>
-        <div class="review-content">
-          <div class="review-header">
-            <div class="author">${author}</div>
-            <div class="date">${date}</div>
-          </div>
-          <div class="rating">${ratingStars}</div>
-          <div class="review-text">${text}</div>
-        </div>
-      `;
-      carousel.appendChild(reviewEl);
-    });
+          reviews.push({name, avatar, rating, text, date});
+        });
 
-    // Carousel functionality
-    const prevBtn = document.querySelector('.prev');
-    const nextBtn = document.querySelector('.next');
-    let scrollAmount = 0;
-    const scrollStep = 320; // width of review + gap
+        // Duplicate reviews for infinite loop
+        const allReviews = [...reviews, ...reviews];
+        allReviews.forEach(r => {
+          const reviewDiv = document.createElement('div');
+          reviewDiv.classList.add('review');
+          reviewDiv.innerHTML = `
+            <div class="review-header">
+              ${r.avatar ? `<img src="${r.avatar}" alt="${r.name}"/>` : ''}
+              <div class="review-author">${r.name}</div>
+            </div>
+            <div class="review-rating">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+            <div class="review-text">${r.text.replace(/\n/g, '<br>')}</div>
+            <div class="review-date">${r.date}</div>
+          `;
+          carousel.appendChild(reviewDiv);
+        });
 
-    nextBtn.addEventListener('click', () => {
-      scrollAmount += scrollStep;
-      if(scrollAmount > carousel.scrollWidth - carousel.clientWidth){
-        scrollAmount = carousel.scrollWidth - carousel.clientWidth;
-      }
-      carousel.style.transform = `translateX(-${scrollAmount}px)`;
-    });
+        const cardWidth = 315; // card width + gap
+        let scrollAmount = 0;
 
-    prevBtn.addEventListener('click', () => {
-      scrollAmount -= scrollStep;
-      if(scrollAmount < 0) scrollAmount = 0;
-      carousel.style.transform = `translateX(-${scrollAmount}px)`;
-    });
-  })
-  .catch(err => console.error(err));
-</script>
+        function autoSwipeFunc() {
+          scrollAmount += cardWidth;
+          if (scrollAmount >= carousel.scrollWidth / 2) { // reset halfway (original length)
+            scrollAmount = 0;
+          }
+          carousel.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+        }
 
+        let autoSwipe = setInterval(autoSwipeFunc, 3000);
+
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+
+        prevBtn.addEventListener('click', () => {
+          scrollAmount -= cardWidth;
+          if (scrollAmount < 0) scrollAmount = carousel.scrollWidth / 2 - cardWidth;
+          carousel.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+          resetAutoSwipe();
+        });
+
+        nextBtn.addEventListener('click', () => {
+          autoSwipeFunc();
+          resetAutoSwipe();
+        });
+
+        function resetAutoSwipe() {
+          clearInterval(autoSwipe);
+          autoSwipe = setInterval(autoSwipeFunc, 3000);
+        }
+      })
+      .catch(err => console.error(err));
+  </script>
 </body>
 </html>

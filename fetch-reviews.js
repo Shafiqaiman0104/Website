@@ -1,6 +1,6 @@
 // fetch-reviews.js
-import puppeteer from "puppeteer";
-import fs from "fs";
+const puppeteer = require("puppeteer");
+const fs = require("fs");
 
 (async () => {
   try {

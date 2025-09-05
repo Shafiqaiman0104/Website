@@ -4,10 +4,10 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "fetch-reviews": "node fetch-reviews.js",
-    "build": "npm run fetch-reviews"
+    "fetch-reviews": "node fetch-reviews.js"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "puppeteer": "^23.3.0"
   }
 }

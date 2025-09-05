@@ -1,26 +1,40 @@
 // fetch-reviews.js
-const fs = require("fs");
+import puppeteer from "puppeteer";
+import fs from "fs";
 
-const CACHE_FILE = "./reviews.json";
-
-// ✅ Just store the iframe/embed code (no puppeteer needed)
-async function fetchReviews() {
+(async () => {
   try {
-    const embedCode = `
-      <script src="https://elfsightcdn.com/platform.js" async></script>
-      <div class="elfsight-app-6a852654-1103-4583-a6fc-9830b6732e40" data-elfsight-app-lazy></div>
-    `;
+    // Start headless browser
+    const browser = await puppeteer.launch({
+      headless: true, // run in background
+      args: ["--no-sandbox", "--disable-setuid-sandbox"]
+    });
+    const page = await browser.newPage();
 
-    fs.writeFileSync(
-      CACHE_FILE,
-      JSON.stringify({ content: embedCode }, null, 2),
-      "utf8"
+    // Go to your Elfsight widget page
+    // Replace with your real widget link
+    const widgetUrl = "https://apps.elfsight.com/widget/6a852654-1103-4583-a6fc-9830b6732e40/";
+    await page.goto(widgetUrl, { waitUntil: "networkidle2" });
+
+    // Wait until reviews load
+    await page.waitForSelector(".eapps-google-reviews", { timeout: 30000 });
+
+    // Extract final rendered reviews HTML
+    const reviewsHtml = await page.$eval(
+      ".eapps-google-reviews",
+      (el) => el.outerHTML
     );
 
-    console.log("✅ Embed code cached in", CACHE_FILE);
-  } catch (err) {
-    console.error("❌ Fetch failed:", err.message);
-  }
-}
+    // Save into reviews.json
+    fs.writeFileSync(
+      "reviews.json",
+      JSON.stringify({ content: reviewsHtml }, null, 2)
+    );
 
-fetchReviews();
+    console.log("✅ Reviews saved to reviews.json");
+
+    await browser.close();
+  } catch (err) {
+    console.error("❌ Error fetching reviews:", err);
+  }
+})();

@@ -41,9 +41,9 @@
     gap: 2px;
     align-items: center;
   }
-  .es-rating-item {
-    font-size: 1.4rem;
-    color: #f5a623;
+  .es-rating-bar-container img {
+    width: 20px;
+    height: 20px;
   }
   .es-header-rating-reviews-count {
     font-size: 0.9rem;
@@ -53,9 +53,9 @@
   /* Carousel Container */
   .carousel-wrapper {
     position: relative;
-    overflow-x: hidden; /* hide next/prev cards */
-    overflow-y: visible; /* allow shadow to show below */
-    padding-bottom: 20px; /* extra space for shadow */
+    overflow-x: hidden;
+    overflow-y: visible;
+    padding-bottom: 20px;
   }
   .carousel {
     display: flex;
@@ -63,7 +63,7 @@
     transition: transform 0.3s ease-in-out;
   }
   .review {
-    width: 300px; /* fixed width */
+    width: 300px;
     flex: 0 0 auto;
     background: #fff;
     padding: 15px;
@@ -120,8 +120,13 @@
   }
 
   .rating {
-    color: #f5a623;
+    display: flex;
+    gap: 2px;
     margin: 5px 0;
+  }
+  .rating img {
+    width: 18px;
+    height: 18px;
   }
   .review-text {
     font-size: 0.9rem;
@@ -170,6 +175,23 @@
 </div>
 
 <script>
+const fullStarImg = "https://img.icons8.com/?size=100&id=19417&format=png&color=000000";
+const halfStarImg = "https://img.icons8.com/?size=100&id=19323&format=png&color=000000";
+const emptyStarImg = "https://img.icons8.com/?size=100&id=19295&format=png&color=000000";
+
+function generateStars(rating) {
+  const fullStars = Math.floor(rating);
+  const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+  const emptyStars = 5 - fullStars - halfStar;
+
+  let starsHtml = "";
+  for (let i = 0; i < fullStars; i++) starsHtml += `<img src="${fullStarImg}" alt="★">`;
+  if (halfStar) starsHtml += `<img src="${halfStarImg}" alt="☆">`;
+  for (let i = 0; i < emptyStars; i++) starsHtml += `<img src="${emptyStarImg}" alt="☆">`;
+
+  return starsHtml;
+}
+
 fetch('reviews.json')
   .then(res => res.json())
   .then(data => {
@@ -182,23 +204,14 @@ fetch('reviews.json')
     /* ==== HEADER SECTION ==== */
     const ratingValue = tempDiv.querySelector('.es-rating-value')?.textContent || '';
     const ratingNum = parseFloat(ratingValue) || 0;
-    const fullStars = Math.floor(ratingNum);
-    const halfStar = ratingNum % 1 >= 0.5 ? 1 : 0;
-    const emptyStars = 5 - fullStars - halfStar;
-
     const reviewsCount = tempDiv.querySelector('.es-header-rating-reviews-count')?.textContent || '';
-
-    const headerStarsHtml =
-      '★'.repeat(fullStars) +
-      (halfStar ? '⯪' : '') +
-      '☆'.repeat(emptyStars);
 
     const headerEl = document.createElement('div');
     headerEl.className = 'reviews-header';
     headerEl.innerHTML = `
       <img class="es-google-logo" src="https://static.elfsight.com/icons/app-all-in-one-reviews-logos-google-logo-multicolor.svg" alt="Google" />
       <span class="es-rating-value">${ratingValue}</span>
-      <div class="es-rating-bar-container">${headerStarsHtml}</div>
+      <div class="es-rating-bar-container">${generateStars(ratingNum)}</div>
       <span class="es-header-rating-reviews-count">${reviewsCount}</span>
     `;
     headerContainer.appendChild(headerEl);
@@ -209,8 +222,8 @@ fetch('reviews.json')
     reviewNodes.forEach(node => {
       const avatar = node.querySelector('.es-avatar-image')?.src || '';
       const author = node.querySelector('.es-review-author-name')?.textContent || 'Anonymous';
-      const filledStars = node.querySelectorAll('.es-rating-stars-item-filled').length;
-      const ratingStars = '★'.repeat(filledStars) + '☆'.repeat(5 - filledStars);
+      const ratingNum = node.querySelectorAll('.es-rating-stars-item-filled').length +
+                        (node.querySelectorAll('.es-rating-stars-item-half').length ? 0.5 : 0);
       const text = node.querySelector('.es-text-shortener')?.textContent || '';
       const date = node.querySelector('.es-review-info-date')?.textContent || '';
 
@@ -229,7 +242,7 @@ fetch('reviews.json')
             </div>
           </div>
           <div class="date">${date}</div>
-          <div class="rating">${ratingStars}</div>
+          <div class="rating">${generateStars(ratingNum)}</div>
           <div class="review-text">${text}</div>
         </div>
       `;

@@ -472,11 +472,15 @@
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
       word-wrap: break-word;
+      text-align: left; /* Align all text to the left */
     }
     .avatar {
       position: relative;
       flex-shrink: 0;
       margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
     }
     .avatar img {
       width: 50px;
@@ -493,12 +497,15 @@
       border-radius: 50%;
       border: 2px solid #fff;
       background: url('https://img.icons8.com/color/48/google-logo.png') no-repeat center/contain;
+      position: static; /* Remove absolute positioning */
+      margin-left: 10px; /* Add some space between avatar and Google icon */
     }
     .review-content {}
     .review-header {
       display: flex;
       align-items: center;
       gap: 5px;
+      justify-content: space-between; /* Space between author and Google icon */
     }
     .author {
       font-weight: bold;
@@ -506,12 +513,15 @@
       display: flex;
       align-items: center;
       gap: 5px;
+      flex-grow: 1; /* Allow author name to take available space */
     }
     .es-verified-badge {
       display: inline-block;
       width: 16px;
       height: 16px;
       background: url('https://img.icons8.com/color/48/checked.png') no-repeat center/contain;
+      margin-left: auto; /* Push Google icon to the right */
+      order: 2; /* Ensure it appears after the author name */
     }
     .date {
       font-size: 0.8rem;

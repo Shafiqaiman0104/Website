@@ -14,25 +14,48 @@
   }
   h2 {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
 
-  /* Header section */
-  .reviews-header {
+  /* Header Card */
+  .reviews-header-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    padding: 15px 20px;
+    margin-bottom: 20px;
+  }
+  .reviews-header-top {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 8px;
   }
-  .reviews-header img.es-google-logo {
-    width: 40px;
-    height: 40px;
+  .reviews-header-top img.es-google-logo {
+    width: 36px;
+    height: 36px;
     object-fit: contain;
   }
+  .reviews-header-top span {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #333;
+  }
+
+  .reviews-header-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .reviews-rating-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
   .es-rating-value {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: #333;
   }
@@ -48,6 +71,22 @@
   .es-header-rating-reviews-count {
     font-size: 0.9rem;
     color: #666;
+  }
+
+  .review-btn {
+    background: #4285f4;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+  .review-btn:hover {
+    background: #3367d6;
   }
 
   /* Carousel Container */
@@ -158,6 +197,8 @@
   /* Responsive */
   @media (max-width: 600px) {
     .review { width: 80%; }
+    .reviews-header-bottom { flex-direction: column; align-items: flex-start; }
+    .review-btn { width: 100%; text-align: center; }
   }
 </style>
 </head>
@@ -165,8 +206,8 @@
 
 <h2>Customer Reviews</h2>
 
-<!-- New reviews header section -->
-<div id="reviews-header" class="reviews-header"></div>
+<!-- Header Card -->
+<div id="reviews-header" class="reviews-header-card"></div>
 
 <div class="carousel-wrapper">
   <button class="carousel-btn prev">&#8249;</button>
@@ -207,12 +248,19 @@ fetch('reviews.json')
     const reviewsCount = tempDiv.querySelector('.es-header-rating-reviews-count')?.textContent || '';
 
     const headerEl = document.createElement('div');
-    headerEl.className = 'reviews-header';
     headerEl.innerHTML = `
-      <img class="es-google-logo" src="https://static.elfsight.com/icons/app-all-in-one-reviews-logos-google-logo-multicolor.svg" alt="Google" />
-      <span class="es-rating-value">${ratingValue}</span>
-      <div class="es-rating-bar-container">${generateStars(ratingNum)}</div>
-      <span class="es-header-rating-reviews-count">${reviewsCount}</span>
+      <div class="reviews-header-top">
+        <img class="es-google-logo" src="https://static.elfsight.com/icons/app-all-in-one-reviews-logos-google-logo-multicolor.svg" alt="Google" />
+        <span>Reviews</span>
+      </div>
+      <div class="reviews-header-bottom">
+        <div class="reviews-rating-info">
+          <span class="es-rating-value">${ratingValue}</span>
+          <div class="es-rating-bar-container">${generateStars(ratingNum)}</div>
+          <span class="es-header-rating-reviews-count">${reviewsCount}</span>
+        </div>
+        <a href="https://g.page/r/CXaMACR3UQkMEBM/review" target="_blank" class="review-btn">Review us on Google</a>
+      </div>
     `;
     headerContainer.appendChild(headerEl);
 

@@ -32,13 +32,13 @@
     margin-bottom: 8px;
   }
   .reviews-header-top img.es-google-logo {
-    width: 36px;
-    height: 36px;
+    width: 70px; /* Increased size */
+    height: auto;
     object-fit: contain;
   }
   .reviews-header-top span {
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: #333;
   }
 
@@ -77,13 +77,14 @@
     background: #4285f4;
     color: #fff;
     border: none;
-    padding: 8px 14px;
+    padding: 10px 16px;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 500;
     text-decoration: none;
     transition: background 0.2s ease;
+    white-space: nowrap;
   }
   .review-btn:hover {
     background: #3367d6;
@@ -133,7 +134,6 @@
     background: url('https://img.icons8.com/color/48/google-logo.png') no-repeat center/contain;
   }
 
-  .review-content {}
   .review-header {
     display: flex;
     align-items: center;
@@ -197,8 +197,16 @@
   /* Responsive */
   @media (max-width: 600px) {
     .review { width: 80%; }
-    .reviews-header-bottom { flex-direction: column; align-items: flex-start; }
-    .review-btn { width: 100%; text-align: center; }
+    .reviews-header-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .review-btn {
+      width: 100%;
+      text-align: center;
+      padding: 12px;
+      font-size: 1rem;
+    }
   }
 </style>
 </head>

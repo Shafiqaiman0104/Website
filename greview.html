@@ -14,15 +14,51 @@
   }
   h2 {
     text-align: center;
+    margin-bottom: 10px;
+  }
+
+  /* Header section */
+  .reviews-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .reviews-header img.es-google-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+  .es-rating-value {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #333;
+  }
+  .es-rating-bar-container {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+  }
+  .es-rating-item {
+    font-size: 1.4rem;
+    color: #ccc;
+  }
+  .es-rating-item-filled {
+    color: #f5a623;
+  }
+  .es-header-rating-reviews-count {
+    font-size: 0.9rem;
+    color: #666;
   }
 
   /* Carousel Container */
   .carousel-wrapper {
-  position: relative;
-  overflow-x: hidden; /* hide next/prev cards */
-  overflow-y: visible; /* allow shadow to show below */
-  padding-bottom: 20px; /* optional extra space for shadow */
+    position: relative;
+    overflow-x: hidden; /* hide next/prev cards */
+    overflow-y: visible; /* allow shadow to show below */
+    padding-bottom: 20px; /* extra space for shadow */
   }
   .carousel {
     display: flex;
@@ -126,6 +162,10 @@
 <body>
 
 <h2>Customer Reviews</h2>
+
+<!-- New reviews header section -->
+<div id="reviews-header" class="reviews-header"></div>
+
 <div class="carousel-wrapper">
   <button class="carousel-btn prev">&#8249;</button>
   <div class="carousel" id="reviews-carousel"></div>
@@ -139,8 +179,32 @@ fetch('reviews.json')
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = data.content;
 
-    const reviewNodes = tempDiv.querySelectorAll('.es-review-container');
     const carousel = document.getElementById('reviews-carousel');
+    const headerContainer = document.getElementById('reviews-header');
+
+    /* ==== HEADER SECTION ==== */
+    const googleLogo = tempDiv.querySelector('.es-google-logo')?.src || '';
+    const ratingValue = tempDiv.querySelector('.es-rating-value')?.textContent || '';
+    const ratingStars = tempDiv.querySelectorAll('.es-rating-bar-container .es-rating-item');
+    const reviewsCount = tempDiv.querySelector('.es-header-rating-reviews-count')?.textContent || '';
+
+    const headerEl = document.createElement('div');
+    headerEl.className = 'reviews-header';
+    headerEl.innerHTML = `
+      <img class="es-google-logo" src="${googleLogo}" alt="Google" />
+      <span class="es-rating-value">${ratingValue}</span>
+      <div class="es-rating-bar-container">
+        ${Array.from(ratingStars).map(star => `
+          <span class="es-rating-item ${star.classList.contains('es-rating-item-filled') ? 'es-rating-item-filled' : 'es-rating-item-unfilled'}">
+            ★
+          </span>`).join('')}
+      </div>
+      <span class="es-header-rating-reviews-count">${reviewsCount}</span>
+    `;
+    headerContainer.appendChild(headerEl);
+
+    /* ==== REVIEWS CARDS ==== */
+    const reviewNodes = tempDiv.querySelectorAll('.es-review-container');
 
     reviewNodes.forEach(node => {
       const avatar = node.querySelector('.es-avatar-image')?.src || '';
@@ -172,7 +236,7 @@ fetch('reviews.json')
       carousel.appendChild(reviewEl);
     });
 
-    // Carousel functionality
+    /* ==== CAROUSEL FUNCTIONALITY ==== */
     const prevBtn = document.querySelector('.prev');
     const nextBtn = document.querySelector('.next');
     let scrollAmount = 0;
@@ -213,4 +277,4 @@ fetch('reviews.json')
 </script>
 
 </body>
-  </html>
+</html>

@@ -43,7 +43,7 @@
   }
   .es-rating-item {
     font-size: 1.4rem;
-    color: #f5a623; /* only filled stars */
+    color: #f5a623;
   }
   .es-header-rating-reviews-count {
     font-size: 0.9rem;
@@ -179,27 +179,30 @@ fetch('reviews.json')
     const carousel = document.getElementById('reviews-carousel');
     const headerContainer = document.getElementById('reviews-header');
 
-/* ==== HEADER SECTION ==== */
-const ratingValue = tempDiv.querySelector('.es-rating-value')?.textContent || '';
-const headerStarsContainer = tempDiv.querySelector('.es-rating-bar-container');
-const filledStars = headerStarsContainer 
-  ? headerStarsContainer.querySelectorAll('.es-rating-item-filled').length 
-  : 0;
-const reviewsCount = tempDiv.querySelector('.es-header-rating-reviews-count')?.textContent || '';
+    /* ==== HEADER SECTION ==== */
+    const ratingValue = tempDiv.querySelector('.es-rating-value')?.textContent || '';
+    const ratingNum = parseFloat(ratingValue) || 0;
+    const fullStars = Math.floor(ratingNum);
+    const halfStar = ratingNum % 1 >= 0.5 ? 1 : 0;
+    const emptyStars = 5 - fullStars - halfStar;
 
-const headerEl = document.createElement('div');
-headerEl.className = 'reviews-header';
-headerEl.innerHTML = `
-  <img class="es-google-logo" src="https://static.elfsight.com/icons/app-all-in-one-reviews-logos-google-logo-multicolor.svg" alt="Google" />
-  <span class="es-rating-value">${ratingValue}</span>
-  <div class="es-rating-bar-container">
-    ${'★'.repeat(filledStars)}${'☆'.repeat(5 - filledStars)}
-  </div>
-  <span class="es-header-rating-reviews-count">${reviewsCount}</span>
-`;
-headerContainer.appendChild(headerEl);
+    const reviewsCount = tempDiv.querySelector('.es-header-rating-reviews-count')?.textContent || '';
 
-    
+    const headerStarsHtml =
+      '★'.repeat(fullStars) +
+      (halfStar ? '⯪' : '') +
+      '☆'.repeat(emptyStars);
+
+    const headerEl = document.createElement('div');
+    headerEl.className = 'reviews-header';
+    headerEl.innerHTML = `
+      <img class="es-google-logo" src="https://static.elfsight.com/icons/app-all-in-one-reviews-logos-google-logo-multicolor.svg" alt="Google" />
+      <span class="es-rating-value">${ratingValue}</span>
+      <div class="es-rating-bar-container">${headerStarsHtml}</div>
+      <span class="es-header-rating-reviews-count">${reviewsCount}</span>
+    `;
+    headerContainer.appendChild(headerEl);
+
     /* ==== REVIEWS CARDS ==== */
     const reviewNodes = tempDiv.querySelectorAll('.es-review-container');
 
@@ -240,8 +243,8 @@ headerContainer.appendChild(headerEl);
 
     function getScrollStep() {
       const card = carousel.querySelector('.review');
-      const gap = 15; 
-      return card ? card.offsetWidth + gap : 315;   
+      const gap = 15;
+      return card ? card.offsetWidth + gap : 315;
     }
 
     let scrollStep = getScrollStep();
@@ -253,7 +256,7 @@ headerContainer.appendChild(headerEl);
     nextBtn.addEventListener('click', () => {
       scrollAmount += scrollStep;
       if(scrollAmount > carousel.scrollWidth - carousel.clientWidth){
-        scrollAmount = 0; 
+        scrollAmount = 0;
       }
       carousel.style.transform = `translateX(-${scrollAmount}px)`;
     });

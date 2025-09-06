@@ -43,10 +43,7 @@
   }
   .es-rating-item {
     font-size: 1.4rem;
-    color: #ccc;
-  }
-  .es-rating-item-filled {
-    color: #f5a623;
+    color: #f5a623; /* only filled stars */
   }
   .es-header-rating-reviews-count {
     font-size: 0.9rem;
@@ -183,21 +180,17 @@ fetch('reviews.json')
     const headerContainer = document.getElementById('reviews-header');
 
     /* ==== HEADER SECTION ==== */
-    const googleLogo = tempDiv.querySelector('.es-google-logo')?.src || '';
     const ratingValue = tempDiv.querySelector('.es-rating-value')?.textContent || '';
-    const ratingStars = tempDiv.querySelectorAll('.es-rating-bar-container .es-rating-item');
+    const filledStars = tempDiv.querySelectorAll('.es-rating-bar-container .es-rating-item-filled').length;
     const reviewsCount = tempDiv.querySelector('.es-header-rating-reviews-count')?.textContent || '';
 
     const headerEl = document.createElement('div');
     headerEl.className = 'reviews-header';
     headerEl.innerHTML = `
-      <img class="es-google-logo" src="${googleLogo}" alt="Google" />
+      <img class="es-google-logo" src="https://static.elfsight.com/icons/app-all-in-one-reviews-logos-google-logo-multicolor.svg" alt="Google" />
       <span class="es-rating-value">${ratingValue}</span>
       <div class="es-rating-bar-container">
-        ${Array.from(ratingStars).map(star => `
-          <span class="es-rating-item ${star.classList.contains('es-rating-item-filled') ? 'es-rating-item-filled' : 'es-rating-item-unfilled'}">
-            ★
-          </span>`).join('')}
+        ${'★'.repeat(filledStars).split('').map(() => `<span class="es-rating-item">★</span>`).join('')}
       </div>
       <span class="es-header-rating-reviews-count">${reviewsCount}</span>
     `;

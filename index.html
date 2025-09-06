@@ -444,6 +444,202 @@
   height: 28px;
 }
 
+    /* ✅ Header Review Card (From code 2) */
+    .reviews-header-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      padding: 15px 20px;
+      margin-bottom: 20px;
+    }
+    .reviews-header-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .reviews-header-top img.es-google-logo {
+      width: 70px; /* Increased size */
+      height: auto;
+      object-fit: contain;
+    }
+    .reviews-header-top span {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    .reviews-header-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .reviews-rating-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .es-rating-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #333;
+    }
+    .es-rating-bar-container {
+      display: flex;
+      gap: 2px;
+      align-items: center;
+    }
+    .es-rating-bar-container img {
+      width: 20px;
+      height: 20px;
+    }
+    .es-header-rating-reviews-count {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .review-btn {
+      background: #4285f4;
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s ease;
+      white-space: nowrap;
+    }
+    .review-btn:hover {
+      background: #3367d6;
+    }
+
+    /* Google Reviews Carousel Styles */
+    .reviews-section {
+      margin: 30px 0;
+    }
+    .reviews-section h2 {
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      color: #2c3e50;
+    }
+    .carousel-wrapper {
+      position: relative;
+      overflow-x: hidden;
+      overflow-y: visible;
+      padding-bottom: 20px;
+    }
+    .reviews-carousel {
+      display: flex;
+      gap: 15px;
+      transition: transform 0.3s ease-in-out;
+    }
+    .review {
+      width: 300px;
+      flex: 0 0 auto;
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      word-wrap: break-word;
+      text-align: left; /* Align all text to the left */
+    }
+    .avatar {
+      position: relative;
+      flex-shrink: 0;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: flex-start;
+    }
+    .avatar img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .avatar-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: url('https://img.icons8.com/color/48/google-logo.png') no-repeat center/contain;
+    }
+    .review-content {}
+    .review-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between author and Google icon */
+  margin-bottom: 5px;
+    }
+    .author {
+      font-weight: bold;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .es-verified-badge {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url('https://img.icons8.com/color/48/checked.png') no-repeat center/contain;
+    }
+    .date {
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 5px;
+    }
+    .rating {
+  color: #f5a623;
+  margin: 5px 0;
+    }
+    .review-text {
+  font-size: 0.9rem;
+  color: #333;
+  word-break: break-word;
+  line-height: 1.4;
+    }
+    .carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.9);
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  z-index: 10;
+    }
+    .prev { left: -15px; }
+    .next { right: -15px; }
+
+    @media (max-width: 600px) {
+      .review { width: 80%; }
+      .unit-card { flex: 0 0 85%; }
+      .rental-card img { width: 100px; height: auto; }
+      .reviews-header-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .review-btn {
+        text-align: center;
+        padding: 12px;
+        font-size: 1rem;
+      }
+    }
+
     @media (min-width: 768px) {
       .vlog-grid {
         grid-template-columns: 1fr 1fr;
@@ -494,8 +690,6 @@
         bottom: 80px;
         border-radius: 15px;
       }
-      .unit-card { flex: 0 0 85%; }
-      .rental-card img { width: 100px; height: auto; }
     }
   </style>
 </head>
@@ -633,349 +827,4 @@
           </div>
         </div>
 
-        <div class="unit-card">
-          <img src="https://i.imgur.com/aCuGWWu.jpeg" alt="Sea View">
-          <div class="unit-details">
-            <div class="unit-text">
-              <h3>Sea View</h3>
-              <ul>
-                <li>Relaxing scenery</li>
-                <li>Sunset spot</li>
-                <li>Perfect for photos</li>
-                <li>Ideal spot for campervans and tents</li>
-              </ul>
-            </div>
-          </div>
-          <div class="unit-footer">
-            <button class="see-more-btn" data-img="https://i.imgur.com/pQ9mboH.png">See More</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
- <!-- Rental Items Section -->
-<div class="rental-section">
-  <h2>Rental Items</h2>
-
-  <div class="rental-card">
-    <img src="rental.jpg" alt="ATV & Scooter">
-    <div style="flex:1">
-      <p>ATV & Scooter</p>
-    </div>
-    <div class="unit-footer">
-      <button class="see-more-btn" data-img="https://i.imgur.com/nBeo7H9.png">See More</button>
-    </div>
-  </div>
-
-  <div class="rental-card">
-    <img src="rental1.jpg" alt="Cooking Items">
-    <div style="flex:1">
-      <p>Cooking Items</p>
-    </div>
-    <div class="unit-footer">
-      <button class="see-more-btn" data-img="https://i.imgur.com/OSFUhR8.png">See More</button>
-    </div>
-  </div>
-
-  <div class="rental-card">
-    <img src="rental2.jpg" alt="Sleeping Gear">
-    <div style="flex:1">
-      <p>Sleeping Gear</p>
-    </div>
-    <div class="unit-footer">
-      <button class="see-more-btn" data-img="https://i.imgur.com/AvStflL.png">See More</button>
-    </div>
-  </div>
-</div>
-
-
- <!-- ✅ Enhanced Facilities Section -->
-    <div class="units-section">
-      <h2>Facilities</h2>
-      <div class="unit-cards">
-        <div class="unit-card">
-          <img src="https://i.imgur.com/FyiWCPs.jpeg" alt="Swimming Pool">
-          <div class="unit-details">
-            <div class="unit-text">
-              <h3>Swimming Pool</h3>
-              <ul>
-                <li>Refreshing pool area</li>
-                <li>Perfect for hot days</li>
-                <li>Family-friendly</li>
-              </ul>
-            </div>
-          </div>
-          <div class="unit-footer">
-            <button class="see-more-btn" data-img="https://i.imgur.com/6pQmiAj.png">See More</button>
-          </div>
-        </div>
-
-        <div class="unit-card">
-          <img src="https://i.imgur.com/mxakCwZ.jpeg" alt="Mosque">
-          <div class="unit-details">
-            <div class="unit-text">
-              <h3>Mosque</h3>
-              <ul>
-                <li>Prayer facilities</li>
-                <li>Spiritual retreat</li>
-                <li>Peaceful environment</li>
-              </ul>
-            </div>
-          </div>
-          <div class="unit-footer">
-            <button class="see-more-btn" data-img="https://i.imgur.com/mxakCwZ.jpeg">See More</button>
-          </div>
-        </div>
-
-        <div class="unit-card">
-          <img src="https://i.imgur.com/O6NCdec.jpeg" alt="Toilet">
-          <div class="unit-details">
-            <div class="unit-text">
-              <h3>Clean & Comfortable Toilets</h3>
-              <ul>
-                <li>Hygienic facilities</li>
-                <li>Well-maintained</li>
-                <li>24/7 availability</li>
-              </ul>
-            </div>
-          </div>
-          <div class="unit-footer">
-            <button class="see-more-btn" data-img="https://i.imgur.com/O6NCdec.jpeg">See More</button>
-          </div>
-        </div>
-      </div>
-    </div>    
-
-    <!-- ✅ Updated Vlog Section -->
-    <div class="vlog-section">
-      <h2>Customer Vlogs 🎥</h2>
-      <div class="vlog-grid">
-        <div class="vlog-card">
-          <div class="vlog-video"><iframe src="https://www.youtube.com/embed/S21N2gBk73U" allowfullscreen></iframe></div>
-          <div class="video-title" id="title-S21N2gBk73U">Loading title...</div>
-          <div class="video-channel" id="channel-S21N2gBk73U">
-            <img src="" alt="Channel Logo" class="channel-logo" id="logo-S21N2gBk73U">
-            <span class="channel-name"></span>
-            <button class="subscribe-btn">Subscribe</button>
-          </div>
-          <div class="video-stats" id="stats-S21N2gBk73U">Loading...</div>
-        </div>
-        <div class="vlog-card">
-          <div class="vlog-video"><iframe src="https://www.youtube.com/embed/ImNLFlLXvsE" allowfullscreen></iframe></div>
-          <div class="video-title" id="title-ImNLFlLXvsE">Loading title...</div>
-          <div class="video-channel" id="channel-ImNLFlLXvsE">
-            <img src="" alt="Channel Logo" class="channel-logo" id="logo-ImNLFlLXvsE">
-            <span class="channel-name"></span>
-            <button class="subscribe-btn">Subscribe</button>
-          </div>
-          <div class="video-stats" id="stats-ImNLFlLXvsE">Loading...</div>
-        </div>
-        <div class="vlog-card">
-          <div class="vlog-video"><iframe src="https://www.youtube.com/embed/QPmIEKzP8lM" allowfullscreen></iframe></div>
-          <div class="video-title" id="title-QPmIEKzP8lM">Loading title...</div>
-          <div class="video-channel" id="channel-QPmIEKzP8lM">
-            <img src="" alt="Channel Logo" class="channel-logo" id="logo-QPmIEKzP8lM">
-            <span class="channel-name"></span>
-            <button class="subscribe-btn">Subscribe</button>
-          </div>
-          <div class="video-stats" id="stats-QPmIEKzP8lM">Loading...</div>
-        </div>
-        <div class="vlog-card">
-          <div class="vlog-video"><iframe src="https://www.youtube.com/embed/j5b0NBZdWZA" allowfullscreen></iframe></div>
-          <div class="video-title" id="title-j5b0NBZdWZA">Loading title...</div>
-          <div class="video-channel" id="channel-j5b0NBZdWZA">
-            <img src="" alt="Channel Logo" class="channel-logo" id="logo-j5b0NBZdWZA">
-            <span class="channel-name"></span>
-            <button class="subscribe-btn">Subscribe</button>
-          </div>
-          <div class="video-stats" id="stats-j5b0NBZdWZA">Loading...</div>
-        </div>
-        <div class="vlog-card">
-          <div class="vlog-video"><iframe src="https://www.youtube.com/embed/tWkMxxy8OOQ" allowfullscreen></iframe></div>
-          <div class="video-title" id="title-tWkMxxy8OOQ">Loading title...</div>
-          <div class="video-channel" id="channel-tWkMxxy8OOQ">
-            <img src="" alt="Channel Logo" class="channel-logo" id="logo-tWkMxxy8OOQ">
-            <span class="channel-name"></span>
-            <button class="subscribe-btn">Subscribe</button>
-          </div>
-          <div class="video-stats" id="stats-tWkMxxy8OOQ">Loading...</div>
-        </div>
-      </div>
-    </div>
-    
-    <h2>What Our Customers Say ⭐</h2>
-    
-    <div class="footer">
-      © 2025 MK RIMBA CAMP PARK
-    </div>
-  </div>
-
-  <!-- ✅ Popup (From code 2) -->
-  <div id="popup" class="popup">
-    <span class="popup-close">&times; Back</span>
-    <img class="popup-content" id="popup-img">
-  </div>
-
-  <!-- Floating Chat Bubble -->
-  <div id="chat-bubble">💬</div>
-  <iframe 
-    id="chat-frame" 
-    src="https://botpress.mkrimbacamp-vr.com/lite/mk-ai-chatbot/?m=channel-web&v=Fullscreen&options=%7B%22hideWidget%22%3Atrue%2C%22config%22%3A%7B%22enableReset%22%3Atrue%2C%22enableTranscriptDownload%22%3Atrue%7D%7D">
-  </iframe>
-
-  <script defer async src='https://cdn.trustindex.io/loader-cert.js?b4afcda5387e453532260edc2ed'></script>
-  <script>
-    // Chat bubble toggle
-    const chatBubble = document.getElementById("chat-bubble");
-    const chatFrame = document.getElementById("chat-frame");
-    chatBubble.addEventListener("click", () => {
-      chatFrame.style.display =
-        (chatFrame.style.display === "none" || chatFrame.style.display === "")
-        ? "block" : "none";
-    });
-
-    // YouTube API for vlog section
-    const API_KEY = "AIzaSyBQZe9U42w2EP8zUKD58Vibnha_W-pQ_Pk";
-    const videoIds = ["S21N2gBk73U","ImNLFlLXvsE","QPmIEKzP8lM","j5b0NBZdWZA","tWkMxxy8OOQ"];
-
-    function formatNumber(num) {
-      if (!num) return "0";
-      num = parseInt(num, 10);
-      if (num >= 1000000) {
-        return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
-      } else if (num >= 1000) {
-        return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
-      }
-      return num.toLocaleString();
-    }
-
-    async function fetchChannelLogo(channelId) {
-      const res = await fetch(
-        `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelId}&key=${API_KEY}`
-      );
-      const data = await res.json();
-      if (data.items && data.items.length > 0) {
-        return data.items[0].snippet.thumbnails.default.url;
-      }
-      return "https://www.gstatic.com/youtube/img/branding/favicon/favicon_144.png";
-    }
-
-        async function fetchStats(videoId) {
-      try {
-        const res = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoId}&key=${API_KEY}`);
-        const data = await res.json();
-
-        if (data.items && data.items.length > 0) {
-          const snippet = data.items[0].snippet;
-          const stats = data.items[0].statistics;
-          const channelId = snippet.channelId;
-
-          document.getElementById(`title-${videoId}`).textContent = snippet.title;
-
-          const channelDiv = document.getElementById(`channel-${videoId}`);
-          channelDiv.querySelector(".channel-name").textContent = snippet.channelTitle;
-
-          const logoImg = document.getElementById(`logo-${videoId}`);
-          fetchChannelLogo(channelId).then(logoUrl => {
-            logoImg.src = logoUrl;
-          });
-
-          // ✅ Make Subscribe button go to channel page
-          const subBtn = channelDiv.querySelector(".subscribe-btn");
-          subBtn.onclick = () => {
-            window.open(`https://www.youtube.com/channel/${channelId}`, "_blank");
-          };
-
-          const likes = formatNumber(stats.likeCount || 0);
-          const views = formatNumber(stats.viewCount || 0);
-          document.getElementById(`stats-${videoId}`).innerHTML =
-            `👍 ${likes} &nbsp;&nbsp; 👁️ ${views}`;
-        } else {
-          document.getElementById(`stats-${videoId}`).innerHTML = "No stats available";
-        }
-      } catch (err) {
-        document.getElementById(`stats-${videoId}`).innerHTML = "Error loading stats";
-      }
-    }
-
-    videoIds.forEach(id => fetchStats(id));
-
-        // ✅ TikTok carousel logic  
-    const track = document.querySelector(".carousel-track");  
-    const videos = Array.from(track.children);  
-    const leftBtn = document.querySelector(".carousel-button.left");  
-    const rightBtn = document.querySelector(".carousel-button.right");  
-    let currentIndex = 1;  
-
-    function updateCarousel() {  
-      videos.forEach((video, index) => {  
-        video.classList.remove("active");  
-        video.pause();  
-      });  
-      const activeVideo = videos[currentIndex];  
-      activeVideo.classList.add("active");  
-      activeVideo.play();  
-
-      const offset = (track.clientWidth / 2) - (activeVideo.offsetWidth / 2);  
-      const translateX = -currentIndex * 170 + offset;  
-      track.style.transform = `translateX(${translateX}px)`;  
-    }  
-    leftBtn.addEventListener("click", e => {  
-      e.preventDefault();  
-      currentIndex = (currentIndex - 1 + videos.length) % videos.length;  
-      updateCarousel();  
-    });  
-    rightBtn.addEventListener("click", e => {  
-      e.preventDefault();  
-      currentIndex = (currentIndex + 1) % videos.length;  
-      updateCarousel();  
-    });  
-    window.addEventListener("load", updateCarousel);  
-
-    // ✅ TikTok API fetch profile  
-    const uid = "7247356375642637318";  
-    const url = `https://free-tiktok-api-scraper-mobile-version.p.rapidapi.com/tok/v1/user_profile/?uid=${uid}`;  
-    const options = {  
-      method: 'GET',  
-      headers: {  
-        'x-rapidapi-key': '5c5f65741dmshca9c1b43174b1eep10a0adjsn17de2d4044ca',  
-        'x-rapidapi-host': 'free-tiktok-api-scraper-mobile-version.p.rapidapi.com'  
-      }  
-    };  
-
-    fetch(url, options)  
-      .then(res => res.json())  
-      .then(data => {  
-        const profile = data.user;  
-        if (!profile) return;  
-        document.getElementById("tavatar").src = profile.avatar_medium?.url_list?.[0] || "";  
-        document.getElementById("tnickname").textContent = profile.nickname;  
-        document.getElementById("tusername").textContent = profile.unique_id;  
-        document.getElementById("tfollowers").textContent = profile.follower_count?.toLocaleString();  
-        document.getElementById("thearts").textContent = profile.total_favorited?.toLocaleString();  
-        document.getElementById("tfollowBtn").href = `https://www.tiktok.com/@${profile.unique_id}`;  
-      })  
-      .catch(err => console.error("TikTok API error:", err));  
-
-    // ✅ Popup functionality (From code 2)
-    const popup = document.getElementById("popup");
-    const popupImg = document.getElementById("popup-img");
-    const popupClose = document.querySelector(".popup-close");
-
-    document.querySelectorAll(".see-more-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        popup.style.display = "block";
-        popupImg.src = btn.getAttribute("data-img");
-      });
-    });
-
-    popupClose.addEventListener("click", () => {
-      popup.style.display = "none";
-    });
-
-    popup.addEventListener("click", e => {
-      if (e.target === popup) popup.style.display = "none";
-    });
-  </script>
-</body>
-  </html>
+        <di

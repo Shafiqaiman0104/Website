@@ -179,23 +179,27 @@ fetch('reviews.json')
     const carousel = document.getElementById('reviews-carousel');
     const headerContainer = document.getElementById('reviews-header');
 
-    /* ==== HEADER SECTION ==== */
-    const ratingValue = tempDiv.querySelector('.es-rating-value')?.textContent || '';
-    const filledStars = tempDiv.querySelectorAll('.es-rating-bar-container .es-rating-item-filled').length;
-    const reviewsCount = tempDiv.querySelector('.es-header-rating-reviews-count')?.textContent || '';
+/* ==== HEADER SECTION ==== */
+const ratingValue = tempDiv.querySelector('.es-rating-value')?.textContent || '';
+const headerStarsContainer = tempDiv.querySelector('.es-rating-bar-container');
+const filledStars = headerStarsContainer 
+  ? headerStarsContainer.querySelectorAll('.es-rating-item-filled').length 
+  : 0;
+const reviewsCount = tempDiv.querySelector('.es-header-rating-reviews-count')?.textContent || '';
 
-    const headerEl = document.createElement('div');
-    headerEl.className = 'reviews-header';
-    headerEl.innerHTML = `
-      <img class="es-google-logo" src="https://static.elfsight.com/icons/app-all-in-one-reviews-logos-google-logo-multicolor.svg" alt="Google" />
-      <span class="es-rating-value">${ratingValue}</span>
-      <div class="es-rating-bar-container">
-        ${'★'.repeat(filledStars).split('').map(() => `<span class="es-rating-item">★</span>`).join('')}
-      </div>
-      <span class="es-header-rating-reviews-count">${reviewsCount}</span>
-    `;
-    headerContainer.appendChild(headerEl);
+const headerEl = document.createElement('div');
+headerEl.className = 'reviews-header';
+headerEl.innerHTML = `
+  <img class="es-google-logo" src="https://static.elfsight.com/icons/app-all-in-one-reviews-logos-google-logo-multicolor.svg" alt="Google" />
+  <span class="es-rating-value">${ratingValue}</span>
+  <div class="es-rating-bar-container">
+    ${'★'.repeat(filledStars)}${'☆'.repeat(5 - filledStars)}
+  </div>
+  <span class="es-header-rating-reviews-count">${reviewsCount}</span>
+`;
+headerContainer.appendChild(headerEl);
 
+    
     /* ==== REVIEWS CARDS ==== */
     const reviewNodes = tempDiv.querySelectorAll('.es-review-container');
 

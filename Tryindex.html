@@ -17,18 +17,27 @@
   display: flex;
   justify-content: center;
   min-height: 100vh;
-  /* ✅ Background with light grey camping icons */
+
+  /* Base background color */
   background-color: #f9f9f9;
-  background-image: url("data:image/svg+xml;utf8,
-    <svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'>
-      <text x='5' y='20' font-size='20' fill='%23cccccc'>⛺</text>
-      <text x='30' y='20' font-size='20' fill='%23cccccc'>🔥</text>
-      <text x='15' y='50' font-size='20' fill='%23cccccc'>🌲</text>
-    </svg>
-  ");
+
+  /* Pattern with Icons8 camping icons */
+  background-image: 
+    url('https://img.icons8.com/ios/50/camping-tent.png'),
+    url('https://img.icons8.com/ios/50/campfire.png'),
+    url('https://img.icons8.com/ios/50/forest.png');
   background-repeat: repeat;
-  background-size: 120px 120px;
-      }
+  background-size: 120px 120px;  /* adjust density */
+  background-position: 0 0, 60px 60px, 30px 90px; /* staggered */
+  opacity: 0.05; /* keep it light so content is readable */
+}
+
+/* Optional: tighter spacing for mobile */
+@media (max-width: 600px) {
+  body {
+    background-size: 90px 90px;
+  }
+}
     
     .container {
       max-width: 500px;

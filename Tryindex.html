@@ -10,11 +10,19 @@
   
   <style>
     body {
-  background-color: #f9f9f9;
-  background-image: url('camp-pattern.svg');
-  background-repeat: repeat;
-  background-size: 220px 220px; /* spacing between tiles */
-    }
+    margin: 0;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+    overflow: hidden; /* prevent scrollbars from icons */
+  }
+
+  .icon {
+    position: absolute;
+    opacity: 0.2; /* transparent */
+    pointer-events: none; /* don’t block clicks */
+    width: 30px;
+    height: 30px;
+  }
     
     .container {
       max-width: 500px;
@@ -1028,6 +1036,33 @@
 
   <script defer async src='https://cdn.trustindex.io/loader-cert.js?b4afcda5387e453532260edc2ed'></script>
   <script>
+    const icons = [
+      "icons/campfire.png",
+      "icons/forest.png",
+      "icons/camping-tent.png"
+    ];
+
+    const iconCount = 30; // how many scattered icons
+
+    for (let i = 0; i < iconCount; i++) {
+      const img = document.createElement("img");
+      img.src = icons[Math.floor(Math.random() * icons.length)];
+      img.className = "icon";
+
+      // random size
+      const size = 20 + Math.random() * 20; 
+      img.style.width = size + "px";
+      img.style.height = size + "px";
+
+      // random position
+      img.style.top = Math.random() * 100 + "%";
+      img.style.left = Math.random() * 100 + "%";
+
+      // random rotation
+      img.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+      document.body.appendChild(img);
+    }
     // Chat bubble toggle
     const chatBubble = document.getElementById("chat-bubble");
     const chatFrame = document.getElementById("chat-frame");

@@ -4,7 +4,7 @@
   </style>
 
   <!-- Tent -->
-  <image href="icons/camping-tent.png" 
+  <image href="mklogo.jpg" 
          x="20" y="30" width="40" height="40" transform="rotate(-15 40 50)" class="icon"/>
 
   <!-- Campfire -->

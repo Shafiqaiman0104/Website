@@ -9,7 +9,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="mklogo.jpg">
   
   <style>
-      body {
+body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -18,26 +18,26 @@
   justify-content: center;
   min-height: 100vh;
 
-  /* Base background color */
+  /* Base background */
   background-color: #f9f9f9;
 
-  /* Pattern with Icons8 camping icons */
+  /* Camping icons (smaller + spaced out) */
   background-image: 
-    url('https://img.icons8.com/ios/50/camping-tent.png'),
-    url('https://img.icons8.com/ios/50/campfire.png'),
-    url('https://img.icons8.com/ios/50/forest.png');
+    url('https://img.icons8.com/ios/50/campfire.png');
   background-repeat: repeat;
-  background-size: 120px 120px;  /* adjust density */
-  background-position: 0 0, 60px 60px, 30px 90px; /* staggered */
-  opacity: 0.05; /* keep it light so content is readable */
+  background-size: 80px 80px;   /* smaller icon grid */
+  background-position: center;
+  opacity: 1; /* keep body normal */
 }
 
-/* Optional: tighter spacing for mobile */
-@media (max-width: 600px) {
-  body {
-    background-size: 90px 90px;
+/* Make content readable: add white backdrop */
+.main-content {
+  position: relative;
+  z-index: 1; /* make sure content is above background */
+  background-color: rgba(255,255,255,0.8); /* subtle white behind text */
+  padding: 20px;
+  border-radius: 12px;
   }
-}
     
     .container {
       max-width: 500px;

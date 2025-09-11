@@ -5,21 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MK AI Chatbot</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
-      height: 100vh;
-      width: 100vw;
-      overflow: hidden;
+      height: 100%;
+      width: 100%;
       display: flex;
       flex-direction: column;
     }
+
     iframe {
       border: none;
+      flex: 1; /* let it grow and shrink properly */
       width: 100%;
-      /* leave space for 52px header */
-      height: calc(100vh - 0px); 
-      margin-top: 0px; 
+      min-height: 0; /* prevents overflow issue on mobile */
     }
   </style>
 </head>

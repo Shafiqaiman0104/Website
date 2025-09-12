@@ -95,43 +95,6 @@
       font-weight: bold;
     }
 
-   .gallery-section {
-  margin: 40px 0;
-}
-.gallery-carousel {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  max-width: 500px;
-  margin: auto;
-}
-.gallery-track {
-  display: flex;
-  transition: transform 0.6s ease-in-out;
-}
-.gallery-track img {
-  min-width: 100%;
-  height: 280px;
-  object-fit: cover;
-  border-radius: 12px;
-}
-.gallery-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  font-size: 20px;
-  z-index: 10;
-}
-.gallery-btn.left { left: 10px; }
-.gallery-btn.right { right: 10px; }
-
         /* ✅ TikTok card merged */  
     .tcard {  
       background: #fff;  
@@ -403,6 +366,51 @@
       margin: 0;
     }
 
+     /* Gallery Section */
+    .gallery-section {
+      margin: 30px 0;
+      overflow: hidden;
+    }
+    .gallery-section h2 {
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      color: #2c3e50;
+    }
+    .gallery {
+      position: relative;
+      width: 280px;
+      height: 180px;
+      transform-style: preserve-3d;
+      animation: rotate 35s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes rotate {
+      from {
+        transform: perspective(1000px) rotateY(0deg);
+      }
+      to {
+        transform: perspective(1000px) rotateY(360deg);
+      }
+    }
+
+    .gallery span {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform-origin: center;
+      transform-style: preserve-3d;
+      transform: rotateY(calc(var(--i) * 45deg)) translateZ(320px);
+    }
+
+    .gallery span img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
     /* ✅ Updated Vlog Section with Cards */
     .vlog-section {
       margin: 30px 0;
@@ -645,6 +653,7 @@
       display: flex;
       align-items: center;
       gap: 5px;
+      flex: 1;
     }
     .es-verified-badge {
   display: inline-block;
@@ -699,6 +708,13 @@
         text-align: center;
         padding: 12px;
         font-size: 1rem;
+      }
+      .gallery {
+        width: 250px;
+        height: 170px;
+      }
+      .gallery span {
+        transform: rotateY(calc(var(--i) * 45deg)) translateZ(300px);
       }
     }
 
@@ -1002,22 +1018,35 @@
       </div>
     </div>    
 
-<!-- ✅ Gallery Section -->
-<div class="gallery-section">
-  <h2>Gallery</h2>
-  <div class="gallery-carousel">
-    <button class="gallery-btn left">&#10094;</button>
-    <div class="gallery-track">
-      <img src="https://i.imgur.com/bym4rI8.jpeg" alt="Gallery 1">
-      <img src="https://i.imgur.com/DxD3ZrX.jpeg" alt="Gallery 2">
-      <img src="https://i.imgur.com/dxaiTqH.jpeg" alt="Gallery 3">
-      <img src="https://i.imgur.com/aCuGWWu.jpeg" alt="Gallery 4">
+    <!-- ✅ Gallery Section (from code 2) -->
+    <div class="gallery-section">
+      <h2>Gallery</h2>
+      <div class="gallery">
+        <span style="--i:1">
+          <img src="https://i.imgur.com/bym4rI8.jpeg" alt="Gallery Image 1" />
+        </span>
+        <span style="--i:2">
+          <img src="https://i.imgur.com/DxD3ZrX.jpeg" alt="Gallery Image 2" />
+        </span>
+        <span style="--i:3">
+          <img src="https://i.imgur.com/dxaiTqH.jpeg" alt="Gallery Image 3" />
+        </span>
+        <span style="--i:4">
+          <img src="https://i.imgur.com/aCuGWWu.jpeg" alt="Gallery Image 4" />
+        </span>
+        <span style="--i:5">
+          <img src="https://i.imgur.com/FyiWCPs.jpeg" alt="Gallery Image 5" />
+        </span>
+        <span style="--i:6">
+          <img src="https://i.imgur.com/mxakCwZ.jpeg" alt="Gallery Image 6" />
+        </span>
+        <span style="--i:7">
+          <img src="https://i.imgur.com/O6NCdec.jpeg" alt="Gallery Image 7" />
+        </span>
+      </div>
     </div>
-    <button class="gallery-btn right">&#10095;</button>
-  </div>
-</div>
-    
-    <!-- ✅ Updated Vlog Section -->
+
+    <!-- ✅ Updated Vlog Section with Cards -->
     <div class="vlog-section">
       <h2>Customer Vlogs 🎥</h2>
       <div class="vlog-grid">
@@ -1381,32 +1410,6 @@
 
       })
       .catch(err => console.error(err));
-
-const track = document.querySelector(".gallery-track");
-const slides = Array.from(track.children);
-const nextBtn = document.querySelector(".gallery-btn.right");
-const prevBtn = document.querySelector(".gallery-btn.left");
-
-let index = 0;
-
-// ✅ Move to slide
-function showSlide(i) {
-  index = (i + slides.length) % slides.length; // infinite loop
-  track.style.transform = `translateX(-${index * 100}%)`;
-}
-
-// Buttons
-nextBtn.addEventListener("click", () => showSlide(index + 1));
-prevBtn.addEventListener("click", () => showSlide(index - 1));
-
-// ✅ Optional: swipe on mobile
-let startX = 0;
-track.addEventListener("touchstart", e => startX = e.touches[0].clientX);
-track.addEventListener("touchend", e => {
-  let endX = e.changedTouches[0].clientX;
-  if (startX - endX > 50) showSlide(index + 1);
-  if (endX - startX > 50) showSlide(index - 1);
-});
   </script>
 </body>
 </html>

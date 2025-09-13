@@ -395,11 +395,13 @@
 
   .gallery span {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 80%; /* Reduced from 100% */
+    height: 80%; /* Reduced from 100% */
     transform-origin: center;
     transform-style: preserve-3d;
-    transform: rotateY(calc(var(--i) * 36deg)) translateZ(380px); /* Increased from 280px to 380px */
+    transform: rotateY(calc(var(--i) * 36deg)) translateZ(280px);
+    left: 10%; /* Center the smaller images */
+    top: 10%; /* Center the smaller images */
   }
 
   .gallery span img {
@@ -710,13 +712,17 @@
         padding: 12px;
         font-size: 1rem;
       }
-      .gallery {
+     .gallery {
       width: 250px;
       height: 170px;
     }
     .gallery span {
-      transform: rotateY(calc(var(--i) * 36deg)) translateZ(320px); /* Increased from 250px to 320px */
-    }    
+      width: 80%; /* Reduced from 100% */
+      height: 80%; /* Reduced from 100% */
+      transform: rotateY(calc(var(--i) * 36deg)) translateZ(250px);
+      left: 10%; /* Center the smaller images */
+      top: 10%; /* Center the smaller images */
+    } 
   }
 
     @media (min-width: 768px) {

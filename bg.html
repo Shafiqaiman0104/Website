@@ -366,50 +366,51 @@
       margin: 0;
     }
 
-     /* Gallery Section */
-    .gallery-section {
-      margin: 30px 0;
-      overflow: hidden;
+  /* ✅ Gallery Section - Fixed overlapping issue */
+  .gallery-section {
+    margin: 30px 0;
+    overflow: hidden;
+  }
+  .gallery-section h2 {
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    color: #2c3e50;
+  }
+  .gallery {
+    position: relative;
+    width: 280px;
+    height: 180px;
+    transform-style: preserve-3d;
+    animation: rotate 35s linear infinite;
+    margin: 0 auto;
+  }
+  @keyframes rotate {
+    from {
+      transform: perspective(1000px) rotateY(0deg);
     }
-    .gallery-section h2 {
-      margin-bottom: 15px;
-      font-size: 1.3rem;
-      color: #2c3e50;
+    to {
+      transform: perspective(1000px) rotateY(360deg);
     }
-    .gallery {
-      position: relative;
-      width: 280px;
-      height: 180px;
-      transform-style: preserve-3d;
-      animation: rotate 35s linear infinite;
-      margin: 0 auto;
-    }
-    @keyframes rotate {
-      from {
-        transform: perspective(1000px) rotateY(0deg);
-      }
-      to {
-        transform: perspective(1000px) rotateY(360deg);
-      }
-    }
+  }
 
-    .gallery span {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      transform-origin: center;
-      transform-style: preserve-3d;
-      transform: rotateY(calc(var(--i) * 36deg)) translateZ(280px);
-    }
+  .gallery span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-origin: center;
+    transform-style: preserve-3d;
+    transform: rotateY(calc(var(--i) * 36deg)) translateZ(380px); /* Increased from 280px to 380px */
+  }
 
-    .gallery span img {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
+  .gallery span img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+
 
     /* ✅ Updated Vlog Section with Cards */
     .vlog-section {
@@ -710,13 +711,13 @@
         font-size: 1rem;
       }
       .gallery {
-        width: 250px;
-        height: 170px;
-      }
-      .gallery span {
-        transform: rotateY(calc(var(--i) * 36deg)) translateZ(250px);
-      }
+      width: 250px;
+      height: 170px;
     }
+    .gallery span {
+      transform: rotateY(calc(var(--i) * 36deg)) translateZ(320px); /* Increased from 250px to 320px */
+    }    
+  }
 
     @media (min-width: 768px) {
       .vlog-grid {

@@ -46,7 +46,6 @@
       display: flex;
       justify-content: center;
       min-height: 100vh;
-      background-repeat: repeat;
     }
     .container {
       max-width: 500px;
@@ -1427,11 +1426,6 @@
 
       })
       .catch(err => console.error(err));
-
-    window.addEventListener("scroll", function () {
-      let offset = window.scrollY * 0.5; // 0.5 = slower speed
-      document.body.style.backgroundPosition = `0px ${offset}px`;
-    });
   </script>
 </body>
 </html>

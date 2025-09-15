@@ -39,14 +39,13 @@
       margin: 0;
       padding: 0;
       background-image: url("https://mkrimbacamp-vr.com/camp-pattern.png");
-      background-attachment: fixed;
       background-size: 250px; 
       background-color: rgba(255, 255, 255, 0.85);
       background-blend-mode: lighten;
       color: #333;
       display: flex;
       justify-content: center;
-      min-height: 100vh;
+      min-height: 200vh;
     }
     .container {
       max-width: 500px;
@@ -1427,6 +1426,11 @@
 
       })
       .catch(err => console.error(err));
+
+    window.addEventListener("scroll", function () {
+      let offset = window.scrollY * 0.5; // 0.5 = slower speed
+      document.body.style.backgroundPosition = `0px ${offset}px`;
+    });
   </script>
 </body>
 </html>

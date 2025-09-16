@@ -701,58 +701,6 @@
     .prev { left: -15px; }
     .next { right: -15px; }
 
-    /* Sidebar Navigation Styles (From code 2) */
-    .sidebar {
-      position: fixed;
-      top: 50%;
-      left: 20px;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      z-index: 100;
-    }
-
-    .sidebar a {
-      position: relative;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #bbb; /* grey when inactive */
-      display: block;
-      text-decoration: none;
-      transition: background 0.3s, transform 0.3s, width 0.3s, height 0.3s;
-    }
-
-    .sidebar a span {
-      position: absolute;
-      left: 25px;
-      top: 50%;
-      transform: translateY(-50%);
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.3s, transform 0.3s;
-      font-size: 14px;
-      color: #333;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 4px 8px;
-      border-radius: 4px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    /* Active circle */
-    .sidebar a.active {
-      background: #007BFF; /* blue */
-      width: 18px;
-      height: 18px;
-      transform: translateX(-3px); /* keep centered when bigger */
-    }
-
-    .sidebar a.active span {
-      opacity: 1;
-      transform: translateY(-50%) translateX(5px);
-    }
-
     @media (max-width: 600px) {
       .review { width: 80%; }
       .unit-card { flex: 0 0 85%; }
@@ -775,11 +723,7 @@
       height: 70%; /* Reduced from 100% */
       transform: rotateY(calc(var(--i) * 45deg)) translateZ(250px);
       top: 10%; /* Center the smaller images */
-    }
-    /* Hide sidebar on mobile for better experience */
-    .sidebar {
-      display: none;
-    }
+    } 
   }
 
     @media (min-width: 768px) {
@@ -836,18 +780,6 @@
   </style>
 </head>
 <body>
-  <!-- Sidebar Navigation (From code 2) -->
-  <nav class="sidebar">
-    <a href="#home"><span>Home</span></a>
-    <a href="#units"><span>Our Units</span></a>
-    <a href="#rental"><span>Rental Items</span></a>
-    <a href="#facilities"><span>Facilities</span></a>
-    <a href="#gallery"><span>Gallery</span></a>
-    <a href="#vlogs"><span>Customer Vlogs</span></a>
-    <a href="#reviews"><span>Reviews</span></a>
-    <a href="#location"><span>Location</span></a>
-  </nav>
-
   <div class="container">
     <!-- Logo -->
     <div class="logo"></div>
@@ -870,7 +802,7 @@
     <h2>MK RIMBA CAMP PARK</h2>
 
     <!-- Chatbot -->
-    <a class="card" id="home" href="webChat.html" target="_blank">
+    <a class="card" href="webChat.html" target="_blank">
       <img src="https://img.icons8.com/?size=100&id=L3uh0mNuxBXw&format=png&color=000000" alt="Chatbot">
       <span>MK Rimba Camp Chatbot</span>
     </a>
@@ -926,7 +858,7 @@
     </a>
 
     <!-- ✅ Updated Units Section (from code 2) -->
-    <div class="units-section" id="units">
+    <div class="units-section">
       <h2>Our Units</h2>
       <div class="unit-cards">
         <div class="unit-card">
@@ -1002,7 +934,7 @@
     </div>
 
  <!-- Rental Items Section -->
-<div class="rental-section" id="rental">
+<div class="rental-section">
   <h2>Rental Items</h2>
 
   <div class="rental-card">
@@ -1038,7 +970,7 @@
 
 
  <!-- ✅ Enhanced Facilities Section -->
-    <div class="units-section" id="facilities">
+    <div class="units-section">
       <h2>Facilities</h2>
       <div class="unit-cards">
         <div class="unit-card">
@@ -1095,7 +1027,7 @@
     </div>    
 
     <!-- ✅ Gallery Section (from code 2) -->
-    <div class="gallery-section" id="gallery">
+    <div class="gallery-section">
       <h2>Gallery</h2>
       <div class="gallery">
         <span style="--i:1">
@@ -1126,7 +1058,7 @@
     </div>
 
     <!-- ✅ Updated Vlog Section with Cards -->
-    <div class="vlog-section" id="vlogs">
+    <div class="vlog-section">
       <h2>Customer Vlogs 🎥</h2>
       <div class="vlog-grid">
         <div class="vlog-card">
@@ -1183,7 +1115,7 @@
     </div>
 
     <!-- ✅ Google Reviews Section (from code 2) with Header -->
-    <div class="reviews-section" id="reviews">
+    <div class="reviews-section">
       <h2>What Our Customers Say ⭐</h2>
       
       <!-- Header Review Card -->
@@ -1197,7 +1129,7 @@
     </div>
     
    <h2>Location 📍</h2>
-   <div class="unit-card" id="location">
+   <div class="unit-card">
      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.5446362242415!2d103.40289627581632!3d1.4477830612514768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d0a383c30f8c55%3A0xc09517724008c76!2sMK%20Rimba%20Camp%20Park!5e0!3m2!1sen!2smy!4v1757777354933!5m2!1sen!2smy" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>  
    </div>
     
@@ -1498,41 +1430,6 @@
      window.addEventListener("scroll", function () {
       let offset = window.scrollY * 0.5; // 0.5 = slower speed
       document.body.style.backgroundPosition = `0px ${offset}px`;
-    });
-
-    // ✅ Scrollspy functionality (From code 2)
-    const navLinks = document.querySelectorAll(".sidebar a");
-    const sections = document.querySelectorAll("section, .units-section, .rental-section, .gallery-section, .vlog-section, #reviews, #home, #location");
-    
-    // Smooth scroll on click
-    navLinks.forEach(link => {
-      link.addEventListener("click", e => {
-        e.preventDefault();
-        const targetId = link.getAttribute("href").substring(1);
-        const targetSection = document.getElementById(targetId);
-        if (targetSection) {
-          targetSection.scrollIntoView({ behavior: "smooth" });
-        }
-      });
-    });
-
-    // Scrollspy
-    window.addEventListener("scroll", () => {
-      let current = "";
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (pageYOffset >= sectionTop - sectionHeight / 3) {
-          current = section.getAttribute("id");
-        }
-      });
-
-      navLinks.forEach(link => {
-        link.classList.remove("active");
-        if (link.getAttribute("href") === "#" + current) {
-          link.classList.add("active");
-        }
-      });
     });
   </script>
 </body>

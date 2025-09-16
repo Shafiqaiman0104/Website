@@ -839,8 +839,6 @@
   <!-- Sidebar Navigation (From code 2) -->
   <nav class="sidebar">
     <a href="#home"><span>Home</span></a>
-    <a href="#tiktok"><span>TikTok</span></a>
-    <a href="#facebook"><span>Facebook</span></a>
     <a href="#units"><span>Our Units</span></a>
     <a href="#rental"><span>Rental Items</span></a>
     <a href="#facilities"><span>Facilities</span></a>
@@ -854,7 +852,7 @@
     <!-- Logo -->
     <div class="logo"></div>
         
-    <div class="bio" id="home"><b style="font-size: 20px;">@mkrimbacamp-vr.com</b><br><br>Welcome to MK Rimba Camp Park 📍 Pontian<br> Adventure • Nature • Relax</div>
+    <div class="bio"><b style="font-size: 20px;">@mkrimbacamp-vr.com</b><br><br>Welcome to MK Rimba Camp Park 📍 Pontian<br> Adventure • Nature • Relax</div>
 
 <!-- Contact Icons Row -->
 <div class="contact-icons">
@@ -872,13 +870,13 @@
     <h2>MK RIMBA CAMP PARK</h2>
 
     <!-- Chatbot -->
-    <a class="card" href="webChat.html" target="_blank">
+    <a class="card" id="home" href="webChat.html" target="_blank">
       <img src="https://img.icons8.com/?size=100&id=L3uh0mNuxBXw&format=png&color=000000" alt="Chatbot">
       <span>MK Rimba Camp Chatbot</span>
     </a>
 
         <!-- ✅ TikTok Card (merged) -->  
-    <div class="tcard" id="tiktok">  
+    <div class="tcard">  
       <div style="display: flex; justify-content: flex-start;">
   <div class="tiktokIconTitle">
     <img src="https://img.icons8.com/?size=100&id=kM0cd7be1NC1&format=png&color=000000" alt="TikTok Icon">
@@ -922,7 +920,7 @@
     </div>  
 
     <!-- Facebook -->
-    <a class="card" id="facebook" href="https://www.facebook.com/rimbacamppark" target="_blank">
+    <a class="card" href="https://www.facebook.com/rimbacamppark" target="_blank">
       <img src="https://img.icons8.com/color/48/facebook-new.png" alt="Facebook">
       <span>Follow us on Facebook</span>
     </a>
@@ -1504,7 +1502,7 @@
 
     // ✅ Scrollspy functionality (From code 2)
     const navLinks = document.querySelectorAll(".sidebar a");
-    const sections = document.querySelectorAll("section, .units-section, .rental-section, .gallery-section, .vlog-section, .reviews-section, #home, #tiktok, #facebook, #location");
+    const sections = document.querySelectorAll("section, .units-section, .rental-section, .gallery-section, .vlog-section, .reviews-section, #home, #location");
     
     // Smooth scroll on click
     navLinks.forEach(link => {

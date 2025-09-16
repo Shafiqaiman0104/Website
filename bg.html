@@ -1183,8 +1183,8 @@
     </div>
 
     <!-- ✅ Google Reviews Section (from code 2) with Header -->
-    <div class="reviews-section" id="reviews">
-      <h2>What Our Customers Say ⭐</h2>
+    <div class="reviews-section">
+      <h2 id="reviews">What Our Customers Say ⭐</h2>
       
       <!-- Header Review Card -->
       <div id="reviews-header" class="reviews-header-card"></div>
@@ -1502,7 +1502,7 @@
 
     // ✅ Scrollspy functionality (From code 2)
     const navLinks = document.querySelectorAll(".sidebar a");
-    const sections = document.querySelectorAll("section, .units-section, .rental-section, .gallery-section, .vlog-section, .reviews-section, #home, #location");
+    const sections = document.querySelectorAll("section, .units-section, .rental-section, .gallery-section, .vlog-section, #reviews, #home, #location");
     
     // Smooth scroll on click
     navLinks.forEach(link => {

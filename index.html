@@ -51,7 +51,7 @@
       max-width: 500px;
       width: 90%;
       text-align: center;
-      padding-top: 40px; /* ✅ Added space from top */
+      padding-top: 80px; /* ✅ Added space from top */
     }
     .logo {
       width: 120px;
@@ -701,6 +701,110 @@
     .prev { left: -15px; }
     .next { right: -15px; }
 
+/* Navbar Styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #01622c;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+  padding: 10px 0;
+}
+
+/* Add padding to all sections to account for fixed navbar */
+#home, #units, #rental, #facilities, #map, #gallery, #vlogs, #reviews, #location {
+  padding-top: 100px; /* Adjust this value based on your navbar height */
+  margin-top: -80px; /* This creates an offset for the anchor positioning */
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.nav-logo img {
+  height: 40px;
+  width: auto;
+}
+
+.nav-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+
+.nav-item a {
+  color: #ded765;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-item a:hover {
+  color: white;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: #ded765;
+  margin: 3px 0;
+  transition: 0.3s;
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+  
+  .nav-menu {
+    position: fixed;
+    left: -100%;
+    top: 60px;
+    flex-direction: column;
+    background-color: #01622c;
+    width: 100%;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+    padding: 20px 0;
+    gap: 0;
+  }
+  
+  .nav-menu.active {
+    left: 0;
+  }
+  
+  .nav-item {
+    margin: 15px 0;
+    width: 100%;
+  }
+  
+  .nav-item a {
+    color: #ded765;
+    display: block;
+    padding: 10px;
+    width: 100%;
+  }
+}
+
     @media (max-width: 600px) {
       .review { width: 80%; }
       .unit-card { flex: 0 0 85%; }
@@ -780,8 +884,39 @@
   </style>
 </head>
 <body>
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-logo" style="display: flex; align-items: center; gap: 10px;">
+        <img src="https://mkrimbacamp-vr.com/mklogo.jpg" alt="MK Rimba Camp Park Logo" style="height: 40px; width: 40px; object-fit: cover; border-radius: 50%;">
+           <div style="font-weight: bold; color: #ded765; white-space: nowrap;">
+             MK Rimba Camp Park
+           </div>
+    </div>
+    
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="#home">Home</a></li>
+      <li class="nav-item"><a href="#units">Our Units</a></li>
+      <li class="nav-item"><a href="#rental">Rental Items</a></li>
+      <li class="nav-item"><a href="#facilities">Facilities</a></li>
+      <li class="nav-item"><a href="#map">Map View</a></li>
+      <li class="nav-item"><a href="#gallery">Gallery</a></li>
+      <li class="nav-item"><a href="#vlogs">Customer Vlogs</a></li>
+      <li class="nav-item"><a href="#reviews">Reviews</a></li>
+      <li class="nav-item"><a href="#location">Location</a></li>
+    </ul>
+    
+    <div class="hamburger">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </div>
+</nav>
+
   <div class="container">
     <!-- Logo -->
+    <div id="home"></div>
     <div class="logo"></div>
         
     <div class="bio"><b style="font-size: 20px;">@mkrimbacamp-vr.com</b><br><br>Welcome to MK Rimba Camp Park 📍 Pontian<br> Adventure • Nature • Relax</div>
@@ -857,6 +992,7 @@
       <span>Follow us on Facebook</span>
     </a>
 
+<div id="units"></div>
     <!-- ✅ Updated Units Section (from code 2) -->
     <div class="units-section">
       <h2>Our Units</h2>
@@ -934,6 +1070,7 @@
     </div>
 
  <!-- Rental Items Section -->
+<div id="rental"></div>
 <div class="rental-section">
   <h2>Rental Items</h2>
 
@@ -968,8 +1105,8 @@
   </div>
 </div>
 
-
  <!-- ✅ Enhanced Facilities Section -->
+<div id="facilities"></div>
     <div class="units-section">
       <h2>Facilities</h2>
       <div class="unit-cards">
@@ -1026,6 +1163,7 @@
       </div>
     </div>    
 
+<div id="map"></div>
     <h2>Map View 🗺️</h2>
     <div class="unit-card" style="width:100%; max-width:600px;">
      <img src="https://i.imgur.com/Q8O9j8Y.png" 
@@ -1034,6 +1172,7 @@
     </div>
 
     <!-- ✅ Gallery Section (from code 2) -->
+<div id="gallery"></div>
     <div class="gallery-section">
       <h2>Gallery</h2>
       <div class="gallery">
@@ -1065,6 +1204,7 @@
     </div>
 
     <!-- ✅ Updated Vlog Section with Cards -->
+<div id="vlogs"></div>
     <div class="vlog-section">
       <h2>Customer Vlogs 🎥</h2>
       <div class="vlog-grid">
@@ -1122,6 +1262,7 @@
     </div>
 
     <!-- ✅ Google Reviews Section (from code 2) with Header -->
+<div id="reviews"></div>
     <div class="reviews-section">
       <h2>What Our Customers Say ⭐</h2>
       
@@ -1135,6 +1276,7 @@
       </div>
     </div>
     
+<div id="location"></div>
    <h2>Location 📍</h2>
    <div class="unit-card">
      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.5446362242415!2d103.40289627581632!3d1.4477830612514768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d0a383c30f8c55%3A0xc09517724008c76!2sMK%20Rimba%20Camp%20Park!5e0!3m2!1sen!2smy!4v1757777354933!5m2!1sen!2smy" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>  
@@ -1435,9 +1577,63 @@
       .catch(err => console.error(err));
 
      window.addEventListener("scroll", function () {
-      let offset = window.scrollY * 0.5; // 0.5 = slower speed
+      let offset = window.scrollY * 0.9; // 0.5 = slower speed
       document.body.style.backgroundPosition = `0px ${offset}px`;
     });
+
+// Hamburger menu functionality
+const hamburger = document.querySelector(".hamburger");
+const navMenu = document.querySelector(".nav-menu");
+
+hamburger.addEventListener("click", () => {
+  hamburger.classList.toggle("active");
+  navMenu.classList.toggle("active");
+});
+
+// Close mobile menu when clicking on a nav link
+document.querySelectorAll(".nav-item a").forEach(n => n.addEventListener("click", (e) => {
+  e.preventDefault();
+  const targetId = n.getAttribute("href").substring(1);
+  
+  // Close menu first
+  hamburger.classList.remove("active");
+  navMenu.classList.remove("active");
+  
+  // Then scroll after a small delay to allow menu to close
+  setTimeout(() => {
+    smoothScroll(targetId);
+  }, 100); // 100ms delay to allow menu animation to complete
+}));
+
+function smoothScroll(targetId) {
+  const targetElement = document.getElementById(targetId);
+  if (targetElement) {
+    const offsetTop = targetElement.offsetTop - 80;
+    
+    // Custom smooth scroll with slower duration (1000ms = 1 seconds)
+    const startPosition = window.pageYOffset;
+    const distance = offsetTop - startPosition;
+    const duration = 2000; // Change this value - higher = slower
+    let startTime = null;
+    
+    function animation(currentTime) {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
+      window.scrollTo(0, run);
+      if (timeElapsed < duration) requestAnimationFrame(animation);
+    }
+    
+    function easeInOutQuad(t, b, c, d) {
+      t /= d/2;
+      if (t < 1) return c/2*t*t + b;
+      t--;
+      return -c/2 * (t*(t-2) - 1) + b;
+    }
+    
+    requestAnimationFrame(animation);
+  }
+}
   </script>
 </body>
 </html>

@@ -1591,10 +1591,49 @@ hamburger.addEventListener("click", () => {
 });
 
 // Close mobile menu when clicking on a nav link
-document.querySelectorAll(".nav-item a").forEach(n => n.addEventListener("click", () => {
+document.querySelectorAll(".nav-item a").forEach(n => n.addEventListener("click", (e) => {
+  e.preventDefault();
+  const targetId = n.getAttribute("href").substring(1);
+  
+  // Close menu first
   hamburger.classList.remove("active");
   navMenu.classList.remove("active");
+  
+  // Then scroll after a small delay to allow menu to close
+  setTimeout(() => {
+    smoothScroll(targetId);
+  }, 100); // 100ms delay to allow menu animation to complete
 }));
+
+function smoothScroll(targetId) {
+  const targetElement = document.getElementById(targetId);
+  if (targetElement) {
+    const offsetTop = targetElement.offsetTop - 80;
+    
+    // Custom smooth scroll with slower duration (1000ms = 1 seconds)
+    const startPosition = window.pageYOffset;
+    const distance = offsetTop - startPosition;
+    const duration = 2000; // Change this value - higher = slower
+    let startTime = null;
+    
+    function animation(currentTime) {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
+      window.scrollTo(0, run);
+      if (timeElapsed < duration) requestAnimationFrame(animation);
+    }
+    
+    function easeInOutQuad(t, b, c, d) {
+      t /= d/2;
+      if (t < 1) return c/2*t*t + b;
+      t--;
+      return -c/2 * (t*(t-2) - 1) + b;
+    }
+    
+    requestAnimationFrame(animation);
+  }
+}
   </script>
 </body>
 </html>

@@ -107,14 +107,16 @@
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  /* Circular glow effect */
   box-shadow: 
     0 0 20px rgba(222, 215, 101, 0.6),
     0 0 40px rgba(222, 215, 101, 0.4),
     0 0 60px rgba(222, 215, 101, 0.2);
   border: 3px solid #ded765;
-  /* Ensure the image itself is circular */
   object-fit: cover;
+  opacity: 0;
+  transform: scale(0.5);
+  animation: logoGrow 3s ease-in-out forwards;
+  animation-delay: 0.5s;
 }
 
 /* Animations - 3 second total (1.5s day, 1.5s night) */
@@ -142,6 +144,26 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+/* Logo grow animation */
+@keyframes logoGrow {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -1749,7 +1771,7 @@ function smoothScroll(targetId) {
 document.addEventListener('DOMContentLoaded', function() {
   const splashScreen = document.getElementById('splash-screen');
   
-  // Hide splash screen after 3 seconds (1.5s day + 1.5s night)
+  // Hide splash screen after 3.5 seconds (3s animation + 0.5s delay)
   setTimeout(function() {
     splashScreen.style.opacity = '0';
     splashScreen.style.transition = 'opacity 0.5s ease-out';
@@ -1757,7 +1779,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(function() {
       splashScreen.style.display = 'none';
     }, 500);
-  }, 3000);
+  }, 3500); // Changed from 3000 to 3500 to account for animation
 });
   </script>
 </body>

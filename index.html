@@ -47,6 +47,126 @@
       justify-content: center;
       min-height: 100vh;
     }
+
+/* Splash Screen Styles */
+#splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.solid-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #01622c;
+  z-index: 1;
+}
+
+.background-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.bg-day {
+  animation-name: dayCycle;
+}
+
+.bg-night {
+  animation-name: nightCycle;
+}
+
+.logo-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.splash-logo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  box-shadow: 
+    0 0 20px rgba(222, 215, 101, 0.6),
+    0 0 40px rgba(222, 215, 101, 0.4),
+    0 0 60px rgba(222, 215, 101, 0.2);
+  border: 3px solid #ded765;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(0.5);
+  animation: logoGrow 3s ease-in-out forwards;
+  animation-delay: 0.5s;
+}
+
+/* Animations - 3 second total (1.5s day, 1.5s night) */
+@keyframes dayCycle {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes nightCycle {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  51% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Logo grow animation */
+@keyframes logoGrow {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
     .container {
       max-width: 500px;
       width: 90%;
@@ -884,6 +1004,18 @@
   </style>
 </head>
 <body>
+<!-- Splash Screen -->
+<div id="splash-screen">
+  <div class="solid-bg"></div>
+  <div class="background-container">
+    <img class="bg bg-day" src="https://raw.githubusercontent.com/Shafiqaiman0104/Website/refs/heads/main/bg2.png" alt="Day background">
+    <img class="bg bg-night" src="https://raw.githubusercontent.com/Shafiqaiman0104/Website/refs/heads/main/bg1.png" alt="Night background">
+  </div>
+  <div class="logo-container">
+    <img src="https://raw.githubusercontent.com/Shafiqaiman0104/Website/refs/heads/main/mklogo.jpg" alt="MK Rimba Camp Park Logo" class="splash-logo">
+  </div>
+</div>
+
 <!-- Navbar -->
 <nav class="navbar">
   <div class="nav-container">
@@ -1634,6 +1766,21 @@ function smoothScroll(targetId) {
     requestAnimationFrame(animation);
   }
 }
+
+// Splash screen functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const splashScreen = document.getElementById('splash-screen');
+  
+  // Hide splash screen after 3.5 seconds (3s animation + 0.5s delay)
+  setTimeout(function() {
+    splashScreen.style.opacity = '0';
+    splashScreen.style.transition = 'opacity 0.5s ease-out';
+    
+    setTimeout(function() {
+      splashScreen.style.display = 'none';
+    }, 500);
+  }, 3500); // Changed from 3000 to 3500 to account for animation
+});
   </script>
 </body>
 </html>

@@ -48,7 +48,7 @@
       min-height: 100vh;
     }
 
-/* Splash Screen Styles */
+/* Splash Screen Styles - UPDATED */
 #splash-screen {
   position: fixed;
   top: 0;
@@ -101,6 +101,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
+  animation: moveLogoUp 1s ease-in-out forwards;
+  animation-delay: 2.5s; /* Start after background animations */
 }
 
 .splash-logo {
@@ -115,39 +117,40 @@
   object-fit: cover;
   opacity: 0;
   transform: scale(0.5);
-  animation: logoGrow 3s ease-in-out forwards;
+  animation: logoGrow 2.5s ease-in-out forwards;
   animation-delay: 0.5s;
 }
 
-/* Animations - 3 second total (1.5s day, 1.5s night) */
+/* Circular Reveal Effect - UPDATED */
+.circle-reveal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: #01622c;
+  transform: translate(-50%, -50%) scale(1);
+  z-index: 15;
+  /* Move up with the logo */
+  animation: moveCircleUp 1s ease-in-out forwards, circleExpand 0.8s ease-in-out forwards;
+  animation-delay: 2.5s, 3.5s; /* Move up first, then expand */
+}
+
+/* Animations */
 @keyframes dayCycle {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
+  0% { opacity: 1; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 @keyframes nightCycle {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0;
-  }
-  51% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
+  0% { opacity: 0; }
+  50% { opacity: 0; }
+  51% { opacity: 0.5; }
+  100% { opacity: 1; }
 }
 
-/* Logo grow animation */
 @keyframes logoGrow {
   0% {
     opacity: 0;
@@ -167,6 +170,44 @@
   }
 }
 
+/* NEW: Logo moves up to final position */
+@keyframes moveLogoUp {
+  0% {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    top: 40px; /* Position where the main logo will be */
+    transform: translate(-50%, 0);
+  }
+}
+
+/* NEW: Circle moves up with logo */
+@keyframes moveCircleUp {
+  0% {
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    top: 40px; /* Same final position as logo */
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+/* NEW: Circle expands to reveal content */
+@keyframes circleExpand {
+  0% {
+    transform: translate(-50%, 0) scale(1); /* Start from final position */
+    border-radius: 50%;
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, 0) scale(20); /* Expand from final position */
+    border-radius: 50%;
+    opacity: 0;
+  }
+}
+
     .container {
       max-width: 500px;
       width: 90%;
@@ -179,6 +220,9 @@
       border-radius: 50%;
       background: url('mklogo.jpg') no-repeat center/cover;
       margin: 0 auto 15px;
+      /* Add these to ensure smooth transition */
+      position: relative;
+      z-index: 1;
     }
     .bio {
       font-size: 1rem;
@@ -1014,6 +1058,7 @@
   <div class="logo-container">
     <img src="https://raw.githubusercontent.com/Shafiqaiman0104/Website/refs/heads/main/mklogo.jpg" alt="MK Rimba Camp Park Logo" class="splash-logo">
   </div>
+  <div class="circle-reveal"></div>
 </div>
 
 <!-- Navbar -->
@@ -1767,19 +1812,19 @@ function smoothScroll(targetId) {
   }
 }
 
-// Splash screen functionality
+// Splash screen functionality - UPDATED
 document.addEventListener('DOMContentLoaded', function() {
   const splashScreen = document.getElementById('splash-screen');
   
-  // Hide splash screen after 3.5 seconds (3s animation + 0.5s delay)
+  // Hide splash screen after all animations complete (circle reveal finishes)
   setTimeout(function() {
     splashScreen.style.opacity = '0';
-    splashScreen.style.transition = 'opacity 0.5s ease-out';
+    splashScreen.style.transition = 'opacity 0.3s ease-out';
     
     setTimeout(function() {
       splashScreen.style.display = 'none';
-    }, 500);
-  }, 3500); // Changed from 3000 to 3500 to account for animation
+    }, 300);
+  }, 4300); // 3.5s (circle move up finish) + 0.8s (animation duration)
 });
   </script>
 </body>

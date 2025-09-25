@@ -57,7 +57,6 @@
   height: 100%;
   z-index: 9999;
   overflow: hidden;
-  transition: opacity 0.5s ease-out;
 }
 
 .solid-bg {
@@ -66,7 +65,6 @@
   height: 100%;
   background-color: #01622c;
   z-index: 1;
-  transition: opacity 0.5s ease-out;
 }
 
 .background-container {
@@ -76,7 +74,6 @@
   top: 0;
   left: 0;
   z-index: 2;
-  transition: opacity 0.5s ease-out;
 }
 
 .bg {
@@ -104,7 +101,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  transition: all 1s ease-in-out;
 }
 
 .splash-logo {
@@ -121,20 +117,6 @@
   transform: scale(0.5);
   animation: logoGrow 3s ease-in-out forwards;
   animation-delay: 0.5s;
-}
-
-/* Logo move animation */
-@keyframes logoMoveToTop {
-  0% {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  100% {
-    top: 20px;
-    left: 20px;
-    transform: translate(0, 0) scale(0.3);
-  }
 }
 
 /* Animations - 3 second total (1.5s day, 1.5s night) */
@@ -183,16 +165,6 @@
     opacity: 1;
     transform: scale(1);
   }
-}
-
-/* Hide the main logo initially */
-.logo {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: url('mklogo.jpg') no-repeat center/cover;
-  margin: 0 auto 15px;
-  opacity: 0; /* Start hidden */
 }
 
     .container {
@@ -1798,36 +1770,16 @@ function smoothScroll(targetId) {
 // Splash screen functionality
 document.addEventListener('DOMContentLoaded', function() {
   const splashScreen = document.getElementById('splash-screen');
-  const splashLogo = document.querySelector('.splash-logo');
-  const logoContainer = document.querySelector('.logo-container');
-  const solidBg = document.querySelector('.solid-bg');
-  const backgroundContainer = document.querySelector('.background-container');
-  const mainLogo = document.querySelector('.logo');
   
-  // After the initial grow animation completes (3.5s)
+  // Hide splash screen after 3.5 seconds (3s animation + 0.5s delay)
   setTimeout(function() {
-    // Start moving the logo to the top
-    logoContainer.style.animation = 'logoMoveToTop 1s ease-in-out forwards';
+    splashScreen.style.opacity = '0';
+    splashScreen.style.transition = 'opacity 0.5s ease-out';
     
-    // Fade out the background elements
-    solidBg.style.opacity = '0';
-    backgroundContainer.style.opacity = '0';
-    
-    // After the logo moves to top (1s)
     setTimeout(function() {
-      // Show the main content
-      splashScreen.style.opacity = '0';
-      
-      // Show the main logo in the content area
-      mainLogo.style.opacity = '1';
-      mainLogo.style.transition = 'opacity 0.5s ease-in';
-      
-      // Hide splash screen completely after transition
-      setTimeout(function() {
-        splashScreen.style.display = 'none';
-      }, 500);
-    }, 1000);
-  }, 3500); // 3s animation + 0.5s delay
+      splashScreen.style.display = 'none';
+    }, 500);
+  }, 3500); // Changed from 3000 to 3500 to account for animation
 });
   </script>
 </body>

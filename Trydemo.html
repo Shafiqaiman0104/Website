@@ -48,7 +48,7 @@
       min-height: 100vh;
     }
 
-/* Splash Screen Styles - UPDATED */
+/* Splash Screen Styles - FIXED */
 #splash-screen {
   position: fixed;
   top: 0;
@@ -100,9 +100,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10;
+  z-index: 20; /* Increased to be above everything */
   animation: moveLogoUp 1s ease-in-out forwards;
-  animation-delay: 2.5s; /* Start after background animations */
+  animation-delay: 2.5s;
 }
 
 .splash-logo {
@@ -121,7 +121,7 @@
   animation-delay: 0.5s;
 }
 
-/* Circular Reveal Effect - UPDATED */
+/* Circular Reveal Effect - FIXED */
 .circle-reveal {
   position: absolute;
   top: 50%;
@@ -131,13 +131,15 @@
   border-radius: 50%;
   background: #01622c;
   transform: translate(-50%, -50%) scale(1);
-  z-index: 15;
-  /* Move up with the logo */
-  animation: moveCircleUp 1s ease-in-out forwards, circleExpand 0.8s ease-in-out forwards;
-  animation-delay: 2.5s, 3.5s; /* Move up first, then expand */
+  z-index: 15; /* Behind logo (20) but above backgrounds (2) */
+  /* Move up with the logo, then expand to reveal content */
+  animation: 
+    moveCircleUp 1s ease-in-out forwards, 
+    circleExpand 0.8s ease-in-out forwards;
+  animation-delay: 2.5s, 3.5s;
 }
 
-/* Animations */
+/* Animations - UPDATED */
 @keyframes dayCycle {
   0% { opacity: 1; }
   50% { opacity: 1; }
@@ -170,39 +172,39 @@
   }
 }
 
-/* NEW: Logo moves up to final position */
 @keyframes moveLogoUp {
   0% {
     top: 50%;
     transform: translate(-50%, -50%);
   }
   100% {
-    top: 40px; /* Position where the main logo will be */
+    top: 40px;
     transform: translate(-50%, 0);
   }
 }
 
-/* NEW: Circle moves up with logo */
 @keyframes moveCircleUp {
   0% {
     top: 50%;
     transform: translate(-50%, -50%) scale(1);
   }
   100% {
-    top: 40px; /* Same final position as logo */
+    top: 40px;
     transform: translate(-50%, 0) scale(1);
   }
 }
 
-/* NEW: Circle expands to reveal content */
 @keyframes circleExpand {
   0% {
-    transform: translate(-50%, 0) scale(1); /* Start from final position */
+    transform: translate(-50%, 0) scale(1);
     border-radius: 50%;
     opacity: 1;
   }
+  90% {
+    opacity: 0.8; /* Slight fade before disappearing */
+  }
   100% {
-    transform: translate(-50%, 0) scale(20); /* Expand from final position */
+    transform: translate(-50%, 0) scale(25); /* Increased scale to cover entire screen */
     border-radius: 50%;
     opacity: 0;
   }
@@ -1048,17 +1050,28 @@
   </style>
 </head>
 <body>
-<!-- Splash Screen -->
+<!-- Splash Screen - FIXED STRUCTURE -->
 <div id="splash-screen">
+  <!-- Green solid background (will be covered by circle initially) -->
   <div class="solid-bg"></div>
+  
+  <!-- Night background (the real content to be revealed) -->
   <div class="background-container">
-    <img class="bg bg-day" src="https://raw.githubusercontent.com/Shafiqaiman0104/Website/refs/heads/main/bg2.png" alt="Day background">
     <img class="bg bg-night" src="https://raw.githubusercontent.com/Shafiqaiman0104/Website/refs/heads/main/bg1.png" alt="Night background">
   </div>
+  
+  <!-- Day background (fades out) -->
+  <div class="background-container">
+    <img class="bg bg-day" src="https://raw.githubusercontent.com/Shafiqaiman0104/Website/refs/heads/main/bg2.png" alt="Day background">
+  </div>
+  
+  <!-- Circle reveal (behind logo, expands to reveal night background) -->
+  <div class="circle-reveal"></div>
+  
+  <!-- Logo (always on top) -->
   <div class="logo-container">
     <img src="https://raw.githubusercontent.com/Shafiqaiman0104/Website/refs/heads/main/mklogo.jpg" alt="MK Rimba Camp Park Logo" class="splash-logo">
   </div>
-  <div class="circle-reveal"></div>
 </div>
 
 <!-- Navbar -->
@@ -1812,11 +1825,11 @@ function smoothScroll(targetId) {
   }
 }
 
-// Splash screen functionality - UPDATED
+// Splash screen functionality - UPDATED TIMING
 document.addEventListener('DOMContentLoaded', function() {
   const splashScreen = document.getElementById('splash-screen');
   
-  // Hide splash screen after all animations complete (circle reveal finishes)
+  // Hide splash screen after all animations complete
   setTimeout(function() {
     splashScreen.style.opacity = '0';
     splashScreen.style.transition = 'opacity 0.3s ease-out';
@@ -1824,7 +1837,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(function() {
       splashScreen.style.display = 'none';
     }, 300);
-  }, 4300); // 3.5s (circle move up finish) + 0.8s (animation duration)
+  }, 4500); // 3.5s (circle move up) + 0.8s (expand) + 0.2s buffer = 4.5s total
 });
   </script>
 </body>
